@@ -1,6 +1,6 @@
-# resume_builder
+# ceevy_builder
 
-Resume Builder
+CEEVY Builder
 
 ## Getting Started
 
