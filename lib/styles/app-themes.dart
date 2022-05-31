@@ -6,6 +6,13 @@ class AppThemes {
   static String fontFamily = 'Gilroy';
   static ThemeData lightTheme = ThemeData(
       fontFamily: fontFamily,
+      elevatedButtonTheme: ElevatedButtonThemeData(
+          style: ElevatedButton.styleFrom(
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(10.0),
+              ),
+              primary: AppColors.accent,
+              textStyle: TextStyle(color: Colors.white))),
       primaryColor: AppColors.primary,
       accentColor: AppColors.accent,
       scaffoldBackgroundColor: AppColors.scaffold,

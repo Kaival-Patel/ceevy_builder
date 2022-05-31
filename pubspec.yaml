@@ -44,7 +44,8 @@ dependencies:
 
   #FONTS AND UI
   google_fonts:
-  smooth_page_indicator:   
+  smooth_page_indicator:
+  animate_do:    
 
 dev_dependencies:
   flutter_test:
