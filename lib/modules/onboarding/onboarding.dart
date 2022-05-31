@@ -37,6 +37,14 @@ class OnboardingScreen extends StatelessWidget {
                 child: Column(
                   mainAxisSize: MainAxisSize.min,
                   children: [
+                    Image.asset(
+                      c.models[index].assetPath,
+                      height: context.height * 0.4,
+                      width: context.height * 0.4,
+                    ),
+                    SizedBox(
+                      height: 10,
+                    ),
                     Text(
                       c.models[index].title,
                       style:

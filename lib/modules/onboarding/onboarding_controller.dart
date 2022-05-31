@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:resume_builder/models/onboarding_model.dart';
+import 'package:resume_builder/styles/app-assets.dart';
 import 'package:resume_builder/styles/app-colors.dart';
 
 class OnboardingController extends GetxController {
@@ -19,7 +20,7 @@ class OnboardingController extends GetxController {
   initializeModel() {
     models = [
       OnboardingModel(
-          assetPath: 'assets/images/onboarding_1.png',
+          assetPath: AppAssets.onboarding1,
           bgCurveColor: AppColors.lightBlue,
           height: Get.height * 0.45,
           width: Get.width * 0.8,
@@ -31,7 +32,7 @@ class OnboardingController extends GetxController {
           description:
               'Ceevy Builder is a tool to help you build your resume in a few clicks.'),
       OnboardingModel(
-          assetPath: 'assets/images/onboarding_2.png',
+          assetPath: AppAssets.onboarding2,
           height: Get.height * 0.45,
           width: Get.width,
           alignment: Alignment.topCenter,
@@ -40,11 +41,11 @@ class OnboardingController extends GetxController {
             bottomLeft: Radius.circular(Get.height * 0.25),
           ),
           bgCurveColor: AppColors.lightYellow,
-          title: 'Create your resume',
+          title: 'Download your resume',
           description:
               'Create your resume in a few clicks. You can add your personal details, work experience, education, skills, projects, awards, and more.'),
       OnboardingModel(
-          assetPath: 'assets/images/onboarding_3.png',
+          assetPath: AppAssets.onboarding3,
           bgCurveColor: AppColors.lightBlueAccent,
           alignment: Alignment.topRight,
           height: Get.height * 0.45,
@@ -52,9 +53,9 @@ class OnboardingController extends GetxController {
           radius: BorderRadius.only(
             bottomLeft: Radius.circular(Get.height * 0.45),
           ),
-          title: 'Share your resume',
+          title: 'Enhance your resume',
           description:
-              'Share your resume with your friends and colleagues. You can also share your resume with your employer.'),
+              'Edit your resume and share it with your friends and colleagues'),
     ];
   }
 }
