@@ -1,13 +1,17 @@
 import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:resume_builder/modules/onboarding/onboarding_controller.dart';
+import 'package:resume_builder/routes/routes.dart';
 import 'package:resume_builder/styles/app-colors.dart';
+import 'package:resume_builder/utils/constants/strings.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
 class OnboardingScreen extends StatelessWidget {
   OnboardingScreen({Key? key}) : super(key: key);
   var c = Get.put(OnboardingController());
+  PageController smController = PageController();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -30,7 +34,7 @@ class OnboardingScreen extends StatelessWidget {
           ),
         ),
         PageView.builder(
-          controller: c.smController,
+          controller: smController,
           itemBuilder: (context, index) => Stack(
             children: [
               Center(
@@ -77,7 +81,7 @@ class OnboardingScreen extends StatelessWidget {
               mainAxisSize: MainAxisSize.min,
               children: [
                 SmoothPageIndicator(
-                  controller: c.smController,
+                  controller: smController,
                   count: c.models.length,
                   effect: ExpandingDotsEffect(
                       dotHeight: 5,
@@ -92,7 +96,11 @@ class OnboardingScreen extends StatelessWidget {
                   width: Get.width * 0.9,
                   height: 45,
                   child: ElevatedButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      var storage = GetStorage();
+                      storage.write(StorageKeys.ONBOARDING_COMPLETE, true);
+                      Get.offAllNamed(Routes.HOME);
+                    },
                     child: Text(
                       'Get Started',
                     ),

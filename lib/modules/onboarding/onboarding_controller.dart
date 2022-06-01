@@ -5,7 +5,6 @@ import 'package:resume_builder/styles/app-assets.dart';
 import 'package:resume_builder/styles/app-colors.dart';
 
 class OnboardingController extends GetxController {
-  PageController smController = PageController();
   List<OnboardingModel> models = [];
   RxInt page = 0.obs;
   @override
