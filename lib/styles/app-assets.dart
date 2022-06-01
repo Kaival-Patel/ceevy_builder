@@ -3,7 +3,9 @@ class AppAssets {
   static const String onboarding1 = '$baseImage/ob_1.png';
   static const String onboarding2 = '$baseImage/ob_2.png';
   static const String onboarding3 = '$baseImage/ob_3.png';
-
+  static const String trending1 = '$baseImage/tr_1.png';
+  static const String trending2 = '$baseImage/tr_2.png';
+  static const String trending3 = '$baseImage/tr_3.png';
   //****ICONS****/
   static const String baseIcons = 'assets/icons';
   static const String home = '$baseIcons/home.svg';

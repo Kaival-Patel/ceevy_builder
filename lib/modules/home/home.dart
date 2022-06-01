@@ -68,7 +68,7 @@ class HomeScreen extends StatelessWidget {
           currentIndex: c.selectedTab(),
         ),
       ),
-      body: Obx(() => c.bottomTabs[c.selectedTab()]),
+      body: SafeArea(child: Obx(() => c.bottomTabs[c.selectedTab()])),
     );
   }
 }
