@@ -1,4 +1,5 @@
 import 'package:get/get.dart';
+import 'package:resume_builder/models/category/category_model.dart';
 import 'package:resume_builder/styles/app-assets.dart';
 
 class BrowseController extends GetxController {

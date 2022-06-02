@@ -7,5 +7,5 @@ class AppColors {
   static const Color lightBlueAccent = Color(0xFFB4E8F9);
   static const Color accent = Color(0xFF37C3FF);
   static const Color primary = Color(0xFF00074A);
-  static const Color scaffold = Colors.white;
+  static const Color scaffold = Color(0xFFF4F4F4);
 }

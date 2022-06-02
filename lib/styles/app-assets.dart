@@ -6,6 +6,12 @@ class AppAssets {
   static const String trending1 = '$baseImage/tr_1.png';
   static const String trending2 = '$baseImage/tr_2.png';
   static const String trending3 = '$baseImage/tr_3.png';
+  static const String minimal_ct = '$baseImage/minimal_ct.png';
+  static const String super_ct = '$baseImage/super_ct.png';
+  static const String pro_ct = '$baseImage/pro_ct.png';
+  static const String simple_ct = '$baseImage/simple_ct.jpg';
+  static const String modern_ct = '$baseImage/modern_ct.png';
+
   //****ICONS****/
   static const String baseIcons = 'assets/icons';
   static const String home = '$baseIcons/home.svg';
