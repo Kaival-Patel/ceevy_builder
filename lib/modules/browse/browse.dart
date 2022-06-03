@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:resume_builder/models/category/category_model.dart';
 import 'package:resume_builder/modules/browse/browse_controller.dart';
+import 'package:resume_builder/modules/resume/resume_list.dart';
 import 'package:resume_builder/repository/data_repo.dart';
 
 class Browse extends StatelessWidget {
@@ -177,47 +178,57 @@ class CategoryCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      height: 170,
-      width: 120,
-      decoration: BoxDecoration(
-          color: Colors.grey[200],
-          boxShadow: [
-            BoxShadow(
-                blurRadius: 7,
-                spreadRadius: 0.5,
-                color: context.theme.disabledColor.withOpacity(0.1))
-          ],
-          borderRadius: BorderRadius.circular(10)),
-      child: Stack(children: [
-        Align(
-          alignment: Alignment.center,
-          child: ClipRRect(
-              borderRadius: BorderRadius.circular(10),
-              child: Image.asset(
-                category.asset,
-                height: 140,
-                width: 80,
-                fit: BoxFit.cover,
-              )),
-        ),
-        Align(
-          alignment: Alignment.bottomCenter,
-          child: Container(
-            height: 40,
-            child: Center(
-                child: Text(
-              category.name,
-              style: TextStyle(fontWeight: FontWeight.bold),
-            )),
-            decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.only(
-                    bottomLeft: Radius.circular(10),
-                    bottomRight: Radius.circular(10))),
+    return InkWell(
+      onTap: category.resumeList.isEmpty
+          ? null
+          : () {
+              Get.to(ResumeList(
+                category: category,
+              ));
+            },
+      borderRadius: BorderRadius.circular(10),
+      child: Container(
+        height: 170,
+        width: 120,
+        decoration: BoxDecoration(
+            color: Colors.grey[200],
+            boxShadow: [
+              BoxShadow(
+                  blurRadius: 7,
+                  spreadRadius: 0.5,
+                  color: context.theme.disabledColor.withOpacity(0.1))
+            ],
+            borderRadius: BorderRadius.circular(10)),
+        child: Stack(children: [
+          Align(
+            alignment: Alignment.center,
+            child: ClipRRect(
+                borderRadius: BorderRadius.circular(10),
+                child: Image.asset(
+                  category.asset,
+                  height: 140,
+                  width: 80,
+                  fit: BoxFit.cover,
+                )),
           ),
-        )
-      ]),
+          Align(
+            alignment: Alignment.bottomCenter,
+            child: Container(
+              height: 40,
+              child: Center(
+                  child: Text(
+                category.name,
+                style: TextStyle(fontWeight: FontWeight.bold),
+              )),
+              decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.only(
+                      bottomLeft: Radius.circular(10),
+                      bottomRight: Radius.circular(10))),
+            ),
+          )
+        ]),
+      ),
     );
   }
 }

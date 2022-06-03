@@ -48,6 +48,12 @@ dependencies:
   smooth_page_indicator:
   animate_do:
   flutter_svg:    
+  bouncing_widget:
+
+  #PDF AND RENDER
+  printing: 
+  pdf:
+  uuid: 
 
 dev_dependencies:
   flutter_test:

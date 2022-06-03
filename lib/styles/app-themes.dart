@@ -14,6 +14,15 @@ class AppThemes {
               primary: AppColors.accent,
               textStyle: TextStyle(color: Colors.white))),
       primaryColor: AppColors.primary,
+      appBarTheme: AppBarTheme(
+          backgroundColor: AppColors.scaffold,
+          elevation: 0,
+          iconTheme: IconThemeData(color: AppColors.primary),
+          titleTextStyle: TextStyle(
+              fontWeight: FontWeight.bold,
+              color: AppColors.primary,
+              fontSize: 16),
+          centerTitle: true),
       accentColor: AppColors.accent,
       scaffoldBackgroundColor: AppColors.scaffold,
       brightness: Brightness.light);

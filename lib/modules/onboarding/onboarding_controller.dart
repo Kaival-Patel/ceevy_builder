@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
-import 'package:resume_builder/models/onboarding_model.dart';
+import 'package:resume_builder/models/onboarding/onboarding_model.dart';
 import 'package:resume_builder/styles/app-assets.dart';
 import 'package:resume_builder/styles/app-colors.dart';
 

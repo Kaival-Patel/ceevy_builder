@@ -4,23 +4,33 @@
 
 import 'dart:convert';
 
+import 'package:resume_builder/models/resume/resume_model.dart';
+import 'package:uuid/uuid.dart';
+
 CVCategory categoryFromJson(String str) =>
     CVCategory.fromJson(json.decode(str));
 
 String categoryToJson(CVCategory data) => json.encode(data.toJson());
 
 class CVCategory {
-  CVCategory({
-    this.name = "",
-    this.asset = "",
-    this.status = 0,
-  });
+  CVCategory(
+      {this.name = "",
+      this.id = '',
+      this.asset = "",
+      this.status = 0,
+      this.resumeList = const []}) {
+    if (this.id.isEmpty) {
+      this.id = Uuid().v4();
+    }
+  }
 
   bool get isValid => status == 1;
 
   String name;
   String asset;
   int status;
+  List<ResumeModel> resumeList;
+  String id;
 
   factory CVCategory.fromJson(Map<String, dynamic> json) => CVCategory(
         name: json["name"] == null ? '' : json["name"],
