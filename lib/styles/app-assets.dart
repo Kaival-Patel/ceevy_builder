@@ -11,6 +11,13 @@ class AppAssets {
   static const String pro_ct = '$baseImage/pro_ct.png';
   static const String simple_ct = '$baseImage/simple_ct.jpg';
   static const String modern_ct = '$baseImage/modern_ct.png';
+  static const String no_profiles = '$baseImage/no_profile.png';
+  static const String profile_1 = '$baseImage/profile_1.png';
+  static const String profile_2 = '$baseImage/profile_2.png';
+  static const String profile_3 = '$baseImage/profile_3.png';
+  static const String profile_4 = '$baseImage/profile_4.png';
+  static const String profile_5 = '$baseImage/profile_5.png';
+  static const String profile_6 = '$baseImage/profile_6.png';
 
   //****ICONS****/
   static const String baseIcons = 'assets/icons';

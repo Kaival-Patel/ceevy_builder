@@ -4,6 +4,7 @@
 
 import 'dart:convert';
 
+import 'package:resume_builder/models/resume/base_resume_class.dart';
 import 'package:resume_builder/models/resume/resume_model.dart';
 import 'package:uuid/uuid.dart';
 
@@ -29,7 +30,7 @@ class CVCategory {
   String name;
   String asset;
   int status;
-  List<ResumeModel> resumeList;
+  List<Resume> resumeList;
   String id;
 
   factory CVCategory.fromJson(Map<String, dynamic> json) => CVCategory(

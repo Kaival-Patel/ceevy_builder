@@ -2,7 +2,9 @@ import 'package:flutter/foundation.dart';
 import 'package:get/get.dart';
 import 'package:resume_builder/models/category/category_model.dart';
 import 'package:resume_builder/models/resume/resume_model.dart';
+import 'package:resume_builder/modules/resume/simple/aztec/aztec.dart';
 import 'package:resume_builder/styles/app-assets.dart';
+import 'package:resume_builder/utils/classes/resume_aztec_class.dart';
 
 DataRepo dataRepo = Get.put(DataRepo(), permanent: true);
 
@@ -42,12 +44,7 @@ class DataRepo extends GetxController {
       asset: AppAssets.simple_ct,
       status: 1,
     );
-    simple_ct.resumeList = [
-      ResumeModel(
-          thumbnailAsset: AppAssets.simple_ct,
-          title: 'AZTEC',
-          categoryId: simple_ct.id)
-    ];
+    simple_ct.resumeList = [AztecResume()];
     var modern_ct = CVCategory(
       name: 'MODERN',
       asset: AppAssets.modern_ct,

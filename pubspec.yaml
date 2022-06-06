@@ -49,11 +49,13 @@ dependencies:
   animate_do:
   flutter_svg:    
   bouncing_widget:
+  timelines: 
 
-  #PDF AND RENDER
-  printing: 
-  pdf:
-  uuid: 
+  #PDF AND FILES
+  printing: ^5.9.1 
+  pdf: ^3.8.1
+  uuid:
+  path_provider:  
 
 dev_dependencies:
   flutter_test:
