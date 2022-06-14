@@ -9,6 +9,8 @@ class AppColors {
   static const Color accent = Color(0xFF37C3FF);
   static const Color primary = Color(0xFF00074A);
   static const Color scaffold = Color(0xFFF4F4F4);
+  static const Color textFieldColor = Color(0xFFF0F1F4);
+  static const Color textFieldBorderColor = Color.fromARGB(178, 240, 241, 244);
 
   static PdfColor getPdfColor(Color color) => PdfColor.fromHex(
       '#${(color.value & 0xFFFFFF).toRadixString(16).padLeft(6, '0').toUpperCase()}');

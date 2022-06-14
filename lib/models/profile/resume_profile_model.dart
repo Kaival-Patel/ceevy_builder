@@ -38,17 +38,16 @@ class ResumeProfile {
   factory ResumeProfile.fromJson(Map<String, dynamic> json) => ResumeProfile(
         education: json["education"] == null
             ? []
-            : List<EducationDetails>.from(
-                json["education"].map((EducationDetails x) => x)),
+            : List<EducationDetails>.from((json["education"].map((x) => x))),
         personalDetails: json["personal_details"] == null
             ? PersonalDetails()
-            : json["personal_details"],
+            : PersonalDetails.fromJson(json["personal_details"]),
         skillDetails: json["skill_details"] == null
             ? []
             : List<SkillDetails>.from(json["skill_details"].map((x) => x)),
         sumamryDetails: json["sumamry_details"] == null
             ? SummaryDetails()
-            : json["sumamry_details"],
+            : SummaryDetails.fromJson(json["sumamry_details"]),
         workDetails: json["work_details"] == null
             ? []
             : List<WorkHistoryDetails>.from(json["work_details"].map((x) => x)),
