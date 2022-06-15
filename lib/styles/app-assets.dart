@@ -29,4 +29,6 @@ class AppAssets {
   static const String settingsFilled = '$baseIcons/settings_fill.svg';
   static const String editIcon = '$baseIcons/edit.svg';
   static const String deleteIcon = '$baseIcons/delete.svg';
+  static const String reloadIcon = '$baseIcons/reload.svg';
+  static const String plusIcon = '$baseIcons/plus.svg';
 }

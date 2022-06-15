@@ -25,6 +25,7 @@ class ResumeProfile {
     this.workDetails = const [],
     this.pictureAsset = AppAssets.profile_1,
     this.label = '',
+    this.lastUpdatedAt,
   });
 
   List<EducationDetails> education;
@@ -34,6 +35,23 @@ class ResumeProfile {
   List<WorkHistoryDetails> workDetails;
   String pictureAsset;
   String label;
+  DateTime? lastUpdatedAt;
+
+  String get lastUpdatedAtString {
+    var difference = DateTime.now().difference(lastUpdatedAt!);
+    if (difference.inDays > 30) {
+      return '${(difference.inDays / 30).toStringAsFixed(0)} months ago';
+    }
+    if (difference.inDays > 0) {
+      return '${difference.inDays} days ago';
+    } else if (difference.inHours > 0) {
+      return '${difference.inHours} hours ago';
+    } else if (difference.inMinutes > 0) {
+      return '${difference.inMinutes} minutes ago';
+    } else {
+      return 'Just now';
+    }
+  }
 
   factory ResumeProfile.fromJson(Map<String, dynamic> json) => ResumeProfile(
         education: json["education"] == null
@@ -54,6 +72,9 @@ class ResumeProfile {
         pictureAsset:
             json["picture_asset"] == null ? '' : json["picture_asset"],
         label: json["label"] == null ? null : json["label"],
+        lastUpdatedAt: json["last_updated_at"] == null
+            ? DateTime.now()
+            : DateTime.parse(json["last_updated_at"]),
       );
 
   Map<String, dynamic> toJson() => {
@@ -72,5 +93,7 @@ class ResumeProfile {
             : List<dynamic>.from(workDetails.map((x) => x.toJson())),
         "picture_asset": pictureAsset == null ? null : pictureAsset,
         "label": label == null ? null : label,
+        "last_updated_at":
+            lastUpdatedAt == null ? null : lastUpdatedAt!.toIso8601String(),
       };
 }

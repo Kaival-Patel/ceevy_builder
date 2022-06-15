@@ -3,6 +3,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:resume_builder/models/profile/resume_profile_model.dart';
 import 'package:resume_builder/modules/create-profile/create_profile.dart';
 import 'package:resume_builder/modules/profile/resume_profile_controller.dart';
+import 'package:resume_builder/routes/routes.dart';
 import 'package:resume_builder/styles/app-assets.dart';
 import 'package:get/get.dart';
 
@@ -56,14 +57,28 @@ class ResumeProfiles extends StatelessWidget {
           ),
         );
       } else {
-        return SingleChildScrollView(
-          physics: BouncingScrollPhysics(),
-          child: ListView.builder(
-            itemBuilder: (context, index) => ProfileCard(
-                profile: c.resumeProfileMap.values.elementAt(index)),
-            shrinkWrap: true,
-            itemCount: c.resumeProfileMap.length,
-            physics: NeverScrollableScrollPhysics(),
+        return Scaffold(
+          floatingActionButton: FloatingActionButton(
+              tooltip: 'New Profile',
+              onPressed: () {
+                Get.bottomSheet(CreateProfile(), isScrollControlled: true);
+              },
+              child: SvgPicture.asset(
+                AppAssets.plusIcon,
+                height: 20,
+                width: 20,
+                color: Colors.white,
+              )),
+          body: SingleChildScrollView(
+            physics: BouncingScrollPhysics(),
+            child: ListView.builder(
+              padding: EdgeInsets.only(bottom: 100),
+              itemBuilder: (context, index) => ProfileCard(
+                  profile: c.resumeProfileMap.values.elementAt(index)),
+              shrinkWrap: true,
+              itemCount: c.resumeProfileMap.length,
+              physics: NeverScrollableScrollPhysics(),
+            ),
           ),
         );
       }
@@ -118,6 +133,32 @@ class ProfileCard extends StatelessWidget {
                 Text(
                   profile.label,
                   style: context.textTheme.headline6,
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
+                ),
+                SizedBox(
+                  height: 5,
+                ),
+                Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    SvgPicture.asset(
+                      AppAssets.reloadIcon,
+                      height: 15,
+                      width: 15,
+                      color: context.theme.disabledColor,
+                    ),
+                    SizedBox(
+                      width: 5,
+                    ),
+                    Text(
+                      profile.lastUpdatedAtString,
+                      style: TextStyle(
+                        fontSize: 14,
+                        color: context.theme.disabledColor,
+                      ),
+                    ),
+                  ],
                 )
               ]),
         ),
@@ -125,8 +166,37 @@ class ProfileCard extends StatelessWidget {
           width: 5,
         ),
         Row(
+          mainAxisSize: MainAxisSize.min,
           children: [
-            SvgPicture.asset(AppAssets.editIcon, height: 20, width: 20),
+            Material(
+              color: context.theme.cardColor,
+              child: IconButton(
+                splashRadius: 20,
+                onPressed: () {
+                  Get.toNamed(Routes.RESUME_PROFILE_FORM, arguments: profile);
+                },
+                icon: SvgPicture.asset(
+                  AppAssets.editIcon,
+                  height: 20,
+                  width: 20,
+                  color: Colors.blue,
+                ),
+              ),
+            ),
+            Material(
+              color: context.theme.cardColor,
+              child: IconButton(
+                splashRadius: 20,
+                onPressed: () {},
+                icon: SvgPicture.asset(
+                  AppAssets.deleteIcon,
+                  height: 20,
+                  width: 20,
+                  fit: BoxFit.cover,
+                  color: Colors.red,
+                ),
+              ),
+            ),
           ],
         ),
         SizedBox(
