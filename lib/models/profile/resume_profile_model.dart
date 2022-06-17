@@ -25,6 +25,7 @@ class ResumeProfile {
     this.workDetails = const [],
     this.pictureAsset = AppAssets.profile_1,
     this.label = '',
+    this.id = '',
     this.lastUpdatedAt,
   });
 
@@ -35,7 +36,10 @@ class ResumeProfile {
   List<WorkHistoryDetails> workDetails;
   String pictureAsset;
   String label;
+  String id;
   DateTime? lastUpdatedAt;
+
+  bool get isAssetPath => pictureAsset.contains('assets/');
 
   String get lastUpdatedAtString {
     var difference = DateTime.now().difference(lastUpdatedAt!);
@@ -72,6 +76,7 @@ class ResumeProfile {
         pictureAsset:
             json["picture_asset"] == null ? '' : json["picture_asset"],
         label: json["label"] == null ? null : json["label"],
+        id: json["id"] == null ? null : json["id"],
         lastUpdatedAt: json["last_updated_at"] == null
             ? DateTime.now()
             : DateTime.parse(json["last_updated_at"]),
@@ -93,6 +98,7 @@ class ResumeProfile {
             : List<dynamic>.from(workDetails.map((x) => x.toJson())),
         "picture_asset": pictureAsset == null ? null : pictureAsset,
         "label": label == null ? null : label,
+        "id": id,
         "last_updated_at":
             lastUpdatedAt == null ? null : lastUpdatedAt!.toIso8601String(),
       };

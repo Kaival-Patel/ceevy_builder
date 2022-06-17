@@ -153,24 +153,11 @@ class ProfileForm extends StatelessWidget {
             ),
           ),
           SizedBox(
-            height: 5,
+            height: 10,
           ),
           Obx(
-            () => Expanded(
-              child: formSteps[c.currentProfileStep()],
-            ),
+            () => Expanded(child: formSteps[c.currentProfileStep()]),
           ),
-          SizedBox(
-            height: 5,
-          ),
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: ElevatedButton(
-                onPressed: () {
-                  c.currentProfileStep(c.currentProfileStep() + 1);
-                },
-                child: Text('Save and Next')),
-          )
         ],
       ),
     );

@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:resume_builder/models/profile/resume_profile_model.dart';
@@ -44,9 +46,10 @@ class ResumeProfiles extends StatelessWidget {
                 Container(
                   width: context.width * 0.7,
                   child: ElevatedButton(
-                      onPressed: () {
-                        Get.bottomSheet(CreateProfile(),
+                      onPressed: () async {
+                        await Get.bottomSheet(CreateProfile(),
                             isScrollControlled: true);
+                        c.fetchProfiles();
                       },
                       child: Center(
                         child: Text('Create Resume Profile'),
@@ -89,7 +92,7 @@ class ResumeProfiles extends StatelessWidget {
 class ProfileCard extends StatelessWidget {
   ResumeProfile profile;
   ProfileCard({required this.profile, Key? key}) : super(key: key);
-
+  var c = Get.find<ResumeProfilesController>();
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -114,12 +117,20 @@ class ProfileCard extends StatelessWidget {
               border:
                   Border.all(color: context.theme.disabledColor, width: 0.5)),
           child: ClipOval(
-            child: Image.asset(
-              height: 50,
-              width: 50,
-              profile.pictureAsset,
-              fit: BoxFit.cover,
-            ),
+            child: profile.isAssetPath
+                ? Image.asset(
+                    height: 50,
+                    width: 50,
+                    profile.pictureAsset,
+                    fit: BoxFit.cover,
+                  )
+                : Image.file(
+                    File(
+                      profile.pictureAsset,
+                    ),
+                    height: 50,
+                    width: 50,
+                    fit: BoxFit.cover),
           ),
         ),
         SizedBox(
@@ -172,8 +183,10 @@ class ProfileCard extends StatelessWidget {
               color: context.theme.cardColor,
               child: IconButton(
                 splashRadius: 20,
-                onPressed: () {
-                  Get.toNamed(Routes.RESUME_PROFILE_FORM, arguments: profile);
+                onPressed: () async {
+                  await Get.toNamed(Routes.RESUME_PROFILE_FORM,
+                      arguments: profile);
+                  c.fetchProfiles();
                 },
                 icon: SvgPicture.asset(
                   AppAssets.editIcon,

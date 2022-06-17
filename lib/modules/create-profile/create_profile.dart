@@ -203,11 +203,11 @@ class CreateProfile extends StatelessWidget {
                       Get.back();
                       try {
                         var profile = ResumeProfile(
+                            id: Uuid().v4(),
                             label: controller.text.trim(),
                             pictureAsset: selectedAvatar());
                         var storage = GetStorage();
-                        storage.write(
-                            Uuid().v4(), resumeProfileToJson(profile));
+                        storage.write(profile.id, resumeProfileToJson(profile));
                         Get.toNamed(Routes.RESUME_PROFILE_FORM,
                             arguments: profile);
                       } catch (err) {

@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:resume_builder/models/profile/resume_profile_model.dart';
 import 'package:resume_builder/models/resume/base_resume_class.dart';
 import 'package:resume_builder/modules/create-profile/education_details_form.dart';
@@ -39,5 +40,10 @@ class ProfileFormController extends GetxController {
   void onInit() {
     // TODO: implement onInit
     super.onInit();
+  }
+
+  void saveResume(ResumeProfile profile) async {
+    var storage = GetStorage();
+    storage.write(profile.id, resumeProfileToJson(profile));
   }
 }

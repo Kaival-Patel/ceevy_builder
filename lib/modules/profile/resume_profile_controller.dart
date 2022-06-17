@@ -17,6 +17,7 @@ class ResumeProfilesController extends GetxController {
   fetchProfiles() async {
     var keys = storage.getKeys();
     keys = keys.toList();
+    resumeProfileMap.clear();
     for (int i = 0; i < keys.length; i++) {
       if (keys[i] != StorageKeys.ONBOARDING_COMPLETE) {
         var key = keys[i];
