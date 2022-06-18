@@ -70,10 +70,15 @@ class ProfileForm extends StatelessWidget {
                           ));
                     } else if (index < c.currentProfileStep()) {
                       color = c.prevDotColor(context);
-                      child = Icon(
-                        Icons.check,
-                        color: Colors.white,
-                        size: 12.0,
+                      child = GestureDetector(
+                        onTap: () {
+                          c.currentProfileStep(index);
+                        },
+                        child: Icon(
+                          Icons.check,
+                          color: Colors.white,
+                          size: 12.0,
+                        ),
                       );
                     } else {
                       color = context.theme.disabledColor;

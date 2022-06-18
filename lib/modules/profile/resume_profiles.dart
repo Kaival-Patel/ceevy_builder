@@ -200,7 +200,9 @@ class ProfileCard extends StatelessWidget {
               color: context.theme.cardColor,
               child: IconButton(
                 splashRadius: 20,
-                onPressed: () {},
+                onPressed: () {
+                  c.removeProfile(id: profile.id);
+                },
                 icon: SvgPicture.asset(
                   AppAssets.deleteIcon,
                   height: 20,

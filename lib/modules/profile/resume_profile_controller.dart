@@ -28,4 +28,9 @@ class ResumeProfilesController extends GetxController {
       }
     }
   }
+
+  removeProfile({required String id}) async {
+    storage.remove(id);
+    fetchProfiles();
+  }
 }

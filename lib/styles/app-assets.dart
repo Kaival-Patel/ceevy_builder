@@ -31,4 +31,5 @@ class AppAssets {
   static const String deleteIcon = '$baseIcons/delete.svg';
   static const String reloadIcon = '$baseIcons/reload.svg';
   static const String plusIcon = '$baseIcons/plus.svg';
+  static const String dragIcon = '$baseIcons/drag.svg';
 }

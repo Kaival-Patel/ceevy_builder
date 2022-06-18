@@ -44,6 +44,7 @@ class ProfileFormController extends GetxController {
 
   void saveResume(ResumeProfile profile) async {
     var storage = GetStorage();
+    storage.remove(profile.id);
     storage.write(profile.id, resumeProfileToJson(profile));
   }
 }
