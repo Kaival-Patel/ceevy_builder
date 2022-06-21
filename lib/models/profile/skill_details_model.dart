@@ -12,21 +12,21 @@ String skillDetailsToJson(SkillDetails data) => json.encode(data.toJson());
 class SkillDetails {
   SkillDetails({
     this.title = '',
-    this.shortDescription = '',
+    this.id = '',
   });
 
   String title;
-  String shortDescription;
+  String id;
 
   factory SkillDetails.fromJson(Map<String, dynamic> json) => SkillDetails(
         title: json["title"] == null ? null : json["title"],
-        shortDescription: json["short_description"] == null
+        id: json["short_description"] == null
             ? null
             : json["short_description"],
       );
 
   Map<String, dynamic> toJson() => {
         "title": title == null ? null : title,
-        "short_description": shortDescription == null ? null : shortDescription,
+        "short_description": id == null ? null : id,
       };
 }

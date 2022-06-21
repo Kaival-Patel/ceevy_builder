@@ -15,6 +15,7 @@ class WorkHistoryDetails {
     this.time = '',
     this.title = '',
     this.place = '',
+    this.sortedPos = 0,
     this.experience = const [],
   });
 
@@ -22,10 +23,14 @@ class WorkHistoryDetails {
   String title;
   String place;
   List<dynamic> experience;
+  int sortedPos;
 
   factory WorkHistoryDetails.fromJson(Map<String, dynamic> json) =>
       WorkHistoryDetails(
         time: json["time"] == null ? WorkHistoryDetails().time : json["time"],
+        sortedPos: json["sortedPos"] == null
+            ? WorkHistoryDetails().sortedPos
+            : json["sortedPos"],
         title:
             json["title"] == null ? WorkHistoryDetails().title : json["title"],
         place:
@@ -39,6 +44,7 @@ class WorkHistoryDetails {
         "time": time == null ? null : time,
         "title": title == null ? null : title,
         "place": place == null ? null : place,
+        "sortedPos": sortedPos,
         "experience": experience == null
             ? null
             : List<dynamic>.from(experience.map((x) => x)),

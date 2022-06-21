@@ -67,7 +67,8 @@ class ResumeProfile {
             : PersonalDetails.fromJson(json["personal_details"]),
         skillDetails: json["skill_details"] == null
             ? []
-            : List<SkillDetails>.from(json["skill_details"].map((x) => x)),
+            : List<SkillDetails>.from(
+                (json["skill_details"].map((x) => SkillDetails.fromJson(x)))),
         sumamryDetails: json["sumamry_details"] == null
             ? SummaryDetails()
             : SummaryDetails.fromJson(json["sumamry_details"]),

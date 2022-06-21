@@ -22,6 +22,7 @@ class _EducationDetailsFormState extends State<EducationDetailsForm> {
   void initState() {
     // TODO: implement initState
     educationDetails = c.resumeProfile.education;
+    educationDetails.sort((a, b) => a.sortedPos.compareTo(b.sortedPos));
     super.initState();
   }
 
@@ -114,14 +115,18 @@ class _EducationDetailsFormState extends State<EducationDetailsForm> {
                               setState(() {});
                             }
                           },
+                          onDelete: () async {
+                            educationDetails.removeAt(index);
+                            setState(() {});
+                          },
                         ),
                     itemCount: educationDetails.length,
                     onReorder: (oldIndex, newIndex) {
-                      logger.d(oldIndex);
-                      logger.d(newIndex);
-                      educationDetails.removeAt(oldIndex);
-                      educationDetails.insert(
-                          newIndex, educationDetails[oldIndex]);
+                      if (newIndex > oldIndex) {
+                        newIndex = newIndex - 1;
+                      }
+                      final task = educationDetails.removeAt(oldIndex);
+                      educationDetails.insert(newIndex, task);
                       setState(() {});
                     })
               ]
@@ -132,6 +137,9 @@ class _EducationDetailsFormState extends State<EducationDetailsForm> {
           padding: const EdgeInsets.all(8.0),
           child: ElevatedButton(
               onPressed: () {
+                for (var i = 0; i < educationDetails.length; i++) {
+                  educationDetails[i].sortedPos = i;
+                }
                 c.resumeProfile.education = educationDetails;
                 c.saveResume(c.resumeProfile);
                 c.currentProfileStep(c.currentProfileStep() + 1);

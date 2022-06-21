@@ -32,6 +32,7 @@ class ProfileForm extends StatelessWidget {
           Container(
             height: 80,
             child: Timeline.tileBuilder(
+              padding: EdgeInsets.only(bottom: 20),
               theme: TimelineThemeData(
                 direction: Axis.horizontal,
                 connectorTheme: ConnectorThemeData(
