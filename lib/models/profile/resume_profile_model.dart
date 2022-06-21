@@ -74,7 +74,8 @@ class ResumeProfile {
             : SummaryDetails.fromJson(json["sumamry_details"]),
         workDetails: json["work_details"] == null
             ? []
-            : List<WorkHistoryDetails>.from(json["work_details"].map((x) => x)),
+            : List<WorkHistoryDetails>.from((json["work_details"]
+                .map((x) => WorkHistoryDetails.fromJson(x)))),
         pictureAsset:
             json["picture_asset"] == null ? '' : json["picture_asset"],
         label: json["label"] == null ? null : json["label"],

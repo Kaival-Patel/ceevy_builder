@@ -141,7 +141,10 @@ class _WorkHistoryFormState extends State<WorkHistoryForm> {
                 }
                 c.resumeProfile.workDetails = workDetails;
                 c.saveResume(c.resumeProfile);
-                c.currentProfileStep(c.currentProfileStep() + 1);
+                Get.back();
+                snack(
+                    msg: 'Profile Created Successfully',
+                    type: SnackType.Success);
               },
               child: Text('Finish')),
         )
