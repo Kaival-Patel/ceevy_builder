@@ -1,7 +1,10 @@
 import 'package:pdf/src/widgets/document.dart';
 import 'package:flutter/src/widgets/framework.dart';
+import 'package:pdf/widgets.dart' as p;
+import 'package:resume_builder/models/profile/resume_profile_model.dart';
 import 'package:resume_builder/models/resume/base_resume_class.dart';
 import 'package:resume_builder/modules/resume/simple/aztec/aztec.dart';
+import 'package:resume_builder/modules/resume/simple/aztec/aztec_pdf.dart';
 import 'package:resume_builder/styles/app-assets.dart';
 
 class AztecResume implements Resume {
@@ -15,7 +18,8 @@ class AztecResume implements Resume {
 
   @override
   // TODO: implement pdfDocument
-  Document get pdfDocument => throw UnimplementedError();
+  p.Page pdfDocument(ResumeProfile profile) =>
+      AztecPdf.getPage(resumeProfile: profile);
 
   @override
   // TODO: implement resumeTitle

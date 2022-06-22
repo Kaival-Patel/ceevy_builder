@@ -26,7 +26,7 @@ class _InitScreenState extends State<InitScreen> with WidgetsBindingObserver {
       var isOnboardingCompleted =
           storage.read(StorageKeys.ONBOARDING_COMPLETE) ?? false;
       if (isOnboardingCompleted) {
-        Get.toNamed(Routes.HOME);
+        Get.offAllNamed(Routes.HOME);
       } else {
         Get.toNamed(Routes.ONBOARDING);
       }

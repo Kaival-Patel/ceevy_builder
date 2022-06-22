@@ -40,6 +40,7 @@ class ResumeProfile {
   DateTime? lastUpdatedAt;
 
   bool get isAssetPath => pictureAsset.contains('assets/');
+  bool get isValid => id.isNotEmpty;
 
   String get lastUpdatedAtString {
     var difference = DateTime.now().difference(lastUpdatedAt!);
