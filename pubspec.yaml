@@ -58,6 +58,7 @@ dependencies:
   path_provider:
   image_picker:
   open_file: ^3.2.1   
+  permission_handler:
 
 dev_dependencies:
   flutter_test:

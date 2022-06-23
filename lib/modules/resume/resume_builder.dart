@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart' as m;
 import 'package:get/get.dart';
 import 'package:logger/logger.dart';
+import 'package:open_file/open_file.dart';
 import 'package:path_provider/path_provider.dart';
+import 'package:permission_handler/permission_handler.dart';
 import 'package:resume_builder/models/profile/resume_profile_model.dart';
 import 'package:resume_builder/models/resume/base_resume_class.dart';
 import 'package:resume_builder/models/resume/resume_model.dart';
@@ -13,6 +15,7 @@ import 'dart:io';
 import 'package:resume_builder/modules/resume/simple/aztec/aztec.dart';
 import 'package:resume_builder/modules/resume/simple/aztec/aztec_pdf.dart';
 import 'package:resume_builder/styles/app-colors.dart';
+import 'package:resume_builder/utils/widgets/snackbar.dart';
 
 class ResumeBuilder extends m.StatelessWidget {
   Resume resumeModel;
@@ -42,7 +45,7 @@ class ResumeBuilder extends m.StatelessWidget {
         body: m.Column(children: [
           m.Expanded(
               child: m.SingleChildScrollView(
-            child: resumeModel.bodyWidget,
+            child: Obx(() => resumeModel.bodyWidget(c.selectedProfile())),
           )),
           m.SizedBox(
             height: 5,
@@ -62,10 +65,51 @@ class ResumeBuilder extends m.StatelessWidget {
   }
 
   downloadResume() async {
+    var permit = Permission.storage;
+    var req = await permit.request();
+    switch (req) {
+      case PermissionStatus.denied:
+        snack(msg: 'Storage access denied', type: SnackType.Error);
+        await 2.delay();
+        await openAppSettings();
+        break;
+      case PermissionStatus.granted:
+        _saveResume();
+        break;
+      case PermissionStatus.restricted:
+        snack(msg: 'Storage access restricted', type: SnackType.Error);
+        await 2.delay();
+        await openAppSettings();
+        break;
+      case PermissionStatus.limited:
+        snack(msg: 'Storage access limited', type: SnackType.Error);
+        await 2.delay();
+        await openAppSettings();
+        break;
+      case PermissionStatus.permanentlyDenied:
+        snack(msg: 'Storage access denied', type: SnackType.Error);
+        await 2.delay();
+        await openAppSettings();
+        break;
+    }
+  }
+
+  _saveResume() async {
     final pdf = Document(title: '${resumeModel.resumeTitle}');
-    pdf.addPage(resumeModel.pdfDocument(ResumeProfile()));
+    pdf.addPage(resumeModel.pdfDocument(c.selectedProfile()));
     final file = File("/storage/emulated/0/example.pdf");
     await file.writeAsBytes(await pdf.save());
+    snackWithButton(
+        msg: 'Resume Downloaded',
+        type: SnackType.Success,
+        textButton: m.TextButton(
+            onPressed: () async {
+              await OpenFile.open(file.path);
+            },
+            child: m.Text(
+              "Open",
+              style: m.TextStyle(color: m.Colors.white),
+            )));
     Logger().d(file.path);
   }
 }

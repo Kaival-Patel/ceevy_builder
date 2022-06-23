@@ -10,7 +10,9 @@ import 'package:resume_builder/styles/app-assets.dart';
 class AztecResume implements Resume {
   @override
   // TODO: implement bodyWidget
-  Widget get bodyWidget => Aztec();
+  Widget bodyWidget(ResumeProfile profile) => Aztec(
+        resumeProfile: profile,
+      );
 
   @override
   // TODO: implement displayAsset

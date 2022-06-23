@@ -18,6 +18,25 @@ void snack({required String msg, SnackType type = SnackType.Info}) {
       snackPosition: SnackPosition.BOTTOM);
 }
 
+void snackWithButton(
+    {required String msg,
+    SnackType type = SnackType.Info,
+    required TextButton textButton}) {
+  Get.snackbar(parseStringFromSnackType(type), msg,
+      icon: Icon(
+        parseSnackType(type),
+        color: Colors.white,
+      ),
+      backgroundColor: parseColorFromSnackType(type),
+      barBlur: 0,
+      borderRadius: 10,
+      colorText: Colors.white,
+      shouldIconPulse: false,
+      margin: EdgeInsets.all(15),
+      mainButton: textButton,
+      snackPosition: SnackPosition.BOTTOM);
+}
+
 String parseStringFromSnackType(SnackType type) {
   switch (type) {
     case SnackType.Info:
@@ -45,7 +64,7 @@ IconData parseSnackType(SnackType type) {
     case SnackType.Info:
       return Icons.info_outlined;
     case SnackType.Success:
-      return Icons.check_circle_outlined;
+      return Icons.verified_outlined;
     case SnackType.Error:
       return Icons.error_outline_outlined;
     default:

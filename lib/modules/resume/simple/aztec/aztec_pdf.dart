@@ -23,7 +23,7 @@ class AztecPdf {
               height: 5,
             ),
             Text(
-              "4311, EDINGTON DRIVE, SMYRNA, GA 002339 (123) 456-7890",
+              "${resumeProfile.personalDetails.address}",
               style: TextStyle(
                   fontSize: 12, color: AppColors.getPdfColor(m.Colors.grey)),
             ),
@@ -50,7 +50,7 @@ class AztecPdf {
                 Expanded(
                     flex: 4,
                     child: Text(
-                      "Successful history developing Independent Contractor Intelligence to improve the business operation planning and implementation.Knowledgeable about business best  ractices,regulatory standards and optimal control systems.",
+                      "${resumeProfile.sumamryDetails.introduction}",
                       style: TextStyle(fontSize: 11),
                     )),
               ],
@@ -62,7 +62,7 @@ class AztecPdf {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Expanded(
-                    flex: 2,
+                    flex: 1,
                     child: Text(
                       "SKILLS",
                       style:
@@ -72,52 +72,24 @@ class AztecPdf {
                   width: 10,
                 ),
                 Expanded(
-                    flex: 4,
-                    child: Row(
-                      children: [
-                        Expanded(
-                          flex: 1,
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                "• Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
+                  flex: 2,
+                  child: Container(
+                    width: Get.width,
+                    child: Wrap(
+                      crossAxisAlignment: WrapCrossAlignment.start,
+                      alignment: WrapAlignment.start,
+                      spacing: 5,
+                      runSpacing: 1,
+                      children: resumeProfile.skillDetails
+                          .map((e) => Expanded(
+                                  child: Text(
+                                "-" + e.title,
                                 style: TextStyle(fontSize: 11),
-                              ),
-                              Text(
-                                "• It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.",
-                                style: TextStyle(fontSize: 11),
-                              ),
-                              Text(
-                                "• Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam",
-                                style: TextStyle(fontSize: 11),
-                              ),
-                            ],
-                          ),
-                        ),
-                        SizedBox(width: 10),
-                        Expanded(
-                          flex: 1,
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                "• Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
-                                style: TextStyle(fontSize: 11),
-                              ),
-                              Text(
-                                "• It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.",
-                                style: TextStyle(fontSize: 11),
-                              ),
-                              Text(
-                                "• Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam",
-                                style: TextStyle(fontSize: 11),
-                              ),
-                            ],
-                          ),
-                        ),
-                      ],
-                    )),
+                              )))
+                          .toList(),
+                    ),
+                  ),
+                )
               ],
             ),
           ]),
