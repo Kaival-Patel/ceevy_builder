@@ -92,6 +92,133 @@ class AztecPdf {
                 )
               ],
             ),
+            SizedBox(
+              height: 10,
+            ),
+            Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Expanded(
+                    flex: 1,
+                    child: Text(
+                      "WORK HISTORY",
+                      style:
+                          TextStyle(fontSize: 13, fontWeight: FontWeight.bold),
+                    )),
+                SizedBox(
+                  width: 10,
+                ),
+                Expanded(
+                  flex: 2,
+                  child: Container(
+                      width: Get.width,
+                      child: ListView.builder(
+                        itemBuilder: (context, index) => Padding(
+                          padding: const EdgeInsets.only(bottom: 5.0),
+                          child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  resumeProfile.workDetails[index].time,
+                                  style: TextStyle(
+                                      fontSize: 11,
+                                      color: AppColors.getPdfColor(
+                                          Get.theme.disabledColor)),
+                                ),
+                                Row(
+                                  children: [
+                                    Text(
+                                      resumeProfile.workDetails[index].title,
+                                      style: TextStyle(
+                                          fontSize: 11,
+                                          fontWeight: FontWeight.bold),
+                                    ),
+                                    Text(
+                                      " | " +
+                                          resumeProfile
+                                              .workDetails[index].place,
+                                      style: TextStyle(
+                                        fontSize: 11,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                                for (int i = 0;
+                                    i <
+                                        resumeProfile.workDetails[index]
+                                            .experience.length;
+                                    i++)
+                                  Text(
+                                    "- " +
+                                        "${resumeProfile.workDetails[index].experience[i]}",
+                                    style: TextStyle(
+                                      fontSize: 11,
+                                    ),
+                                  ),
+                              ]),
+                        ),
+                        itemCount: resumeProfile.workDetails.length,
+                      )),
+                )
+              ],
+            ),
+            SizedBox(
+              height: 5,
+            ),
+            Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Expanded(
+                    flex: 1,
+                    child: Text(
+                      "EDUCATION",
+                      style:
+                          TextStyle(fontSize: 13, fontWeight: FontWeight.bold),
+                    )),
+                SizedBox(
+                  width: 10,
+                ),
+                Expanded(
+                  flex: 2,
+                  child: Container(
+                      width: Get.width,
+                      child: ListView.builder(
+                        itemBuilder: (context, index) => Padding(
+                          padding: const EdgeInsets.only(bottom: 5.0),
+                          child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  resumeProfile.education[index].time,
+                                  style: TextStyle(
+                                      fontSize: 11,
+                                      color: AppColors.getPdfColor(
+                                          Get.theme.disabledColor)),
+                                ),
+                                Row(
+                                  children: [
+                                    Text(
+                                      resumeProfile.education[index].title,
+                                      style: TextStyle(
+                                          fontSize: 11,
+                                          fontWeight: FontWeight.bold),
+                                    ),
+                                    Text(
+                                      " | " +
+                                          resumeProfile.education[index].place,
+                                      style: TextStyle(
+                                        fontSize: 11,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ]),
+                        ),
+                        itemCount: resumeProfile.education.length,
+                      )),
+                )
+              ],
+            ),
           ]),
         );
       },
