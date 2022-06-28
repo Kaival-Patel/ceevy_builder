@@ -12,10 +12,10 @@ String personalDetailsToJson(PersonalDetails data) =>
 
 class PersonalDetails {
   const PersonalDetails({
-    this.name = 'John Doe',
+    this.name = '',
     this.picture = '',
-    this.contact = '+1 125 632 1455',
-    this.email = 'johndoe@gmail.com',
+    this.contact = '',
+    this.email = '',
     this.address = '',
     this.positionTitle = '',
   });

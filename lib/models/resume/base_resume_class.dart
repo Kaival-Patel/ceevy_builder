@@ -6,5 +6,5 @@ abstract class Resume {
   String get resumeTitle;
   Widget bodyWidget(ResumeProfile profile);
   String get displayAsset;
-  pdf.Page pdfDocument(ResumeProfile profile);
+  pdf.Page pdfDocument(ResumeProfile profile, {pdf.TtfFont? font});
 }

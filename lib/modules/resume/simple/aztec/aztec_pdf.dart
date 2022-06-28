@@ -6,7 +6,7 @@ import 'package:resume_builder/models/profile/resume_profile_model.dart';
 import 'package:resume_builder/styles/app-colors.dart';
 
 class AztecPdf {
-  static Page getPage({required ResumeProfile resumeProfile}) {
+  static Page getPage({required ResumeProfile resumeProfile, TtfFont? font}) {
     return Page(
       pageFormat: PdfPageFormat.a4,
       margin: EdgeInsets.all(10),
@@ -17,7 +17,8 @@ class AztecPdf {
               Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
             Text(
               "${resumeProfile.personalDetails.name}",
-              style: TextStyle(fontSize: 26, fontWeight: FontWeight.bold),
+              style: TextStyle(
+                  fontSize: 26, fontWeight: FontWeight.bold, font: font),
             ),
             SizedBox(
               height: 5,
@@ -25,7 +26,9 @@ class AztecPdf {
             Text(
               "${resumeProfile.personalDetails.address}",
               style: TextStyle(
-                  fontSize: 12, color: AppColors.getPdfColor(m.Colors.grey)),
+                  fontSize: 12,
+                  font: font,
+                  color: AppColors.getPdfColor(m.Colors.grey)),
             ),
             Divider(
               thickness: 2,
@@ -41,8 +44,10 @@ class AztecPdf {
                     flex: 2,
                     child: Text(
                       "PROFESSIONAL\nSUMMARY",
-                      style:
-                          TextStyle(fontSize: 13, fontWeight: FontWeight.bold),
+                      style: TextStyle(
+                          fontSize: 13,
+                          font: font,
+                          fontWeight: FontWeight.bold),
                     )),
                 SizedBox(
                   width: 10,
@@ -51,7 +56,7 @@ class AztecPdf {
                     flex: 4,
                     child: Text(
                       "${resumeProfile.sumamryDetails.introduction}",
-                      style: TextStyle(fontSize: 11),
+                      style: TextStyle(fontSize: 11, font: font),
                     )),
               ],
             ),
@@ -65,8 +70,10 @@ class AztecPdf {
                     flex: 1,
                     child: Text(
                       "SKILLS",
-                      style:
-                          TextStyle(fontSize: 13, fontWeight: FontWeight.bold),
+                      style: TextStyle(
+                          fontSize: 13,
+                          font: font,
+                          fontWeight: FontWeight.bold),
                     )),
                 SizedBox(
                   width: 10,
@@ -84,7 +91,7 @@ class AztecPdf {
                           .map((e) => Expanded(
                                   child: Text(
                                 "-" + e.title,
-                                style: TextStyle(fontSize: 11),
+                                style: TextStyle(fontSize: 11, font: font),
                               )))
                           .toList(),
                     ),
@@ -102,8 +109,10 @@ class AztecPdf {
                     flex: 1,
                     child: Text(
                       "WORK HISTORY",
-                      style:
-                          TextStyle(fontSize: 13, fontWeight: FontWeight.bold),
+                      style: TextStyle(
+                          fontSize: 13,
+                          fontWeight: FontWeight.bold,
+                          font: font),
                     )),
                 SizedBox(
                   width: 10,
@@ -122,6 +131,7 @@ class AztecPdf {
                                   resumeProfile.workDetails[index].time,
                                   style: TextStyle(
                                       fontSize: 11,
+                                      font: font,
                                       color: AppColors.getPdfColor(
                                           Get.theme.disabledColor)),
                                 ),
@@ -131,6 +141,7 @@ class AztecPdf {
                                       resumeProfile.workDetails[index].title,
                                       style: TextStyle(
                                           fontSize: 11,
+                                          font: font,
                                           fontWeight: FontWeight.bold),
                                     ),
                                     Text(
@@ -139,6 +150,7 @@ class AztecPdf {
                                               .workDetails[index].place,
                                       style: TextStyle(
                                         fontSize: 11,
+                                        font: font,
                                       ),
                                     ),
                                   ],
@@ -153,6 +165,7 @@ class AztecPdf {
                                         "${resumeProfile.workDetails[index].experience[i]}",
                                     style: TextStyle(
                                       fontSize: 11,
+                                      font: font,
                                     ),
                                   ),
                               ]),
@@ -172,8 +185,10 @@ class AztecPdf {
                     flex: 1,
                     child: Text(
                       "EDUCATION",
-                      style:
-                          TextStyle(fontSize: 13, fontWeight: FontWeight.bold),
+                      style: TextStyle(
+                          fontSize: 13,
+                          font: font,
+                          fontWeight: FontWeight.bold),
                     )),
                 SizedBox(
                   width: 10,
@@ -192,6 +207,7 @@ class AztecPdf {
                                   resumeProfile.education[index].time,
                                   style: TextStyle(
                                       fontSize: 11,
+                                      font: font,
                                       color: AppColors.getPdfColor(
                                           Get.theme.disabledColor)),
                                 ),
@@ -201,6 +217,7 @@ class AztecPdf {
                                       resumeProfile.education[index].title,
                                       style: TextStyle(
                                           fontSize: 11,
+                                          font: font,
                                           fontWeight: FontWeight.bold),
                                     ),
                                     Text(
@@ -208,6 +225,7 @@ class AztecPdf {
                                           resumeProfile.education[index].place,
                                       style: TextStyle(
                                         fontSize: 11,
+                                        font: font,
                                       ),
                                     ),
                                   ],

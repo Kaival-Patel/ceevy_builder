@@ -4,6 +4,7 @@ import 'package:logger/logger.dart';
 import 'package:open_file/open_file.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:permission_handler/permission_handler.dart';
+import 'package:printing/printing.dart';
 import 'package:resume_builder/models/profile/resume_profile_model.dart';
 import 'package:resume_builder/models/resume/base_resume_class.dart';
 import 'package:resume_builder/models/resume/resume_model.dart';
@@ -95,8 +96,9 @@ class ResumeBuilder extends m.StatelessWidget {
   }
 
   _saveResume() async {
+    final ttf = await fontFromAssetBundle('assets/fonts/Gilroy-Regular.ttf');
     final pdf = Document(title: '${resumeModel.resumeTitle}');
-    pdf.addPage(resumeModel.pdfDocument(c.selectedProfile()));
+    pdf.addPage(resumeModel.pdfDocument(c.selectedProfile(), font: ttf));
     final file = File("/storage/emulated/0/example.pdf");
     await file.writeAsBytes(await pdf.save());
     snackWithButton(

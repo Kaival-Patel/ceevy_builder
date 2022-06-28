@@ -18,6 +18,7 @@ class AppAssets {
   static const String profile_4 = '$baseImage/profile_4.png';
   static const String profile_5 = '$baseImage/profile_5.png';
   static const String profile_6 = '$baseImage/profile_6.png';
+  static const String profiles = '$baseImage/profiles.png';
 
   //****ICONS****/
   static const String baseIcons = 'assets/icons';

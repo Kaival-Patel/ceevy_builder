@@ -16,8 +16,14 @@ class _AztecState extends State<Aztec> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    widget.resumeProfile.workDetails
-        .sort((a, b) => a.sortedPos.compareTo(b.sortedPos));
+    if (widget.resumeProfile.workDetails.isNotEmpty) {
+      widget.resumeProfile.workDetails
+          .sort((a, b) => a.sortedPos.compareTo(b.sortedPos));
+    }
+    if (widget.resumeProfile.education.isNotEmpty) {
+      widget.resumeProfile.education
+          .sort((a, b) => a.sortedPos.compareTo(b.sortedPos));
+    }
   }
 
   @override
@@ -199,7 +205,7 @@ class _AztecState extends State<Aztec> {
                                   fontSize: 11,
                                   color: context.theme.disabledColor),
                             ),
-                            Row(
+                            Column(
                               children: [
                                 Text(
                                   widget.resumeProfile.education[index].title,
@@ -208,9 +214,7 @@ class _AztecState extends State<Aztec> {
                                       fontWeight: FontWeight.bold),
                                 ),
                                 Text(
-                                  " | " +
-                                      widget
-                                          .resumeProfile.education[index].place,
+                                  widget.resumeProfile.education[index].place,
                                   style: TextStyle(
                                     fontSize: 11,
                                   ),

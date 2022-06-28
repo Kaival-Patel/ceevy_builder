@@ -106,4 +106,60 @@ class ResumeProfile {
         "last_updated_at":
             lastUpdatedAt == null ? null : lastUpdatedAt!.toIso8601String(),
       };
+
+  ResumeProfile get defaultProfile => ResumeProfile(
+      personalDetails: PersonalDetails(
+          address: '23, Sky Avenue, New York, USA',
+          contact: '+1 123-456-7890',
+          email: 'johndoe@gmail.com',
+          name: 'John Doe',
+          positionTitle: 'Lead Designer'),
+      id: "12",
+      label: 'Default Profile',
+      lastUpdatedAt: DateTime.now(),
+      pictureAsset: AppAssets.profile_1,
+      education: [
+        EducationDetails(
+          place: 'University of Minesotta',
+          sortedPos: 1,
+          time: '2017-2021',
+          title: 'Diploma in Designing',
+        ),
+        EducationDetails(
+          place: 'University of Minesotta',
+          sortedPos: 2,
+          time: '2021-Present',
+          title: 'Bachelor in Designing',
+        ),
+      ],
+      skillDetails: [
+        SkillDetails(id: '1', title: 'Figma'),
+        SkillDetails(id: '3', title: 'HTML'),
+        SkillDetails(id: '2', title: 'CSS')
+      ],
+      sumamryDetails: SummaryDetails(
+          introduction:
+              "Successful history developing Independent Design machine to improve business operational planning and implementation. Knowledgeable about business best practices, regulatory standards and optimal design controls"),
+      workDetails: [
+        WorkHistoryDetails(
+            place: 'Alpha Design Studio',
+            sortedPos: 1,
+            time: 'Jan 2019 - Present',
+            title: 'Design Intern',
+            experience: [
+              "Responsible for redesigning existing system flow",
+              "Worked on several government projects between short deadlines",
+              "Catering clients and helping them with selecting best suitable designs",
+            ]),
+        WorkHistoryDetails(
+            place: 'Beta Design Studio',
+            sortedPos: 2,
+            time: 'Dec 2018 - Dec 2019',
+            title: 'Junior UI/UX',
+            experience: [
+              "Responsible for redesigning existing system flow",
+              "Worked on several government projects between short deadlines",
+              "Catering clients and helping them with selecting best suitable designs",
+            ])
+      ]);
 }

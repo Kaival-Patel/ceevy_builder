@@ -11,7 +11,8 @@ class AztecResume implements Resume {
   @override
   // TODO: implement bodyWidget
   Widget bodyWidget(ResumeProfile profile) => Aztec(
-        resumeProfile: profile,
+        resumeProfile:
+            profile.isValid ? profile : ResumeProfile().defaultProfile,
       );
 
   @override
@@ -20,8 +21,11 @@ class AztecResume implements Resume {
 
   @override
   // TODO: implement pdfDocument
-  p.Page pdfDocument(ResumeProfile profile) =>
-      AztecPdf.getPage(resumeProfile: profile);
+  p.Page pdfDocument(ResumeProfile profile, {p.TtfFont? font}) =>
+      AztecPdf.getPage(
+          resumeProfile:
+              profile.isValid ? profile : ResumeProfile().defaultProfile,
+          font: font);
 
   @override
   // TODO: implement resumeTitle

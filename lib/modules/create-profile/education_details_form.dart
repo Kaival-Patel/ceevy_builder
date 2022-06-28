@@ -22,7 +22,10 @@ class _EducationDetailsFormState extends State<EducationDetailsForm> {
   void initState() {
     // TODO: implement initState
     educationDetails = c.resumeProfile.education;
-    educationDetails.sort((a, b) => a.sortedPos.compareTo(b.sortedPos));
+    if (educationDetails.isNotEmpty) {
+      educationDetails.sort((a, b) => a.sortedPos.compareTo(b.sortedPos));
+    }
+
     super.initState();
   }
 

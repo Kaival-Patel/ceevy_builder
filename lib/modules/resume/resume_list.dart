@@ -47,7 +47,7 @@ class ResumeCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () {
-        Get.to(ResumeBuilder(resumeModel: resume));
+        Get.to(() => ResumeBuilder(resumeModel: resume));
       },
       borderRadius: BorderRadius.circular(10),
       child: Container(
