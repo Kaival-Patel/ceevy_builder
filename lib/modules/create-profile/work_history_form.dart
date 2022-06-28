@@ -22,12 +22,13 @@ class _WorkHistoryFormState extends State<WorkHistoryForm> {
   @override
   void initState() {
     // TODO: implement initState
-    workDetails = c.resumeProfile.workDetails;
-    if (workDetails.isNotEmpty) {
-      workDetails.sort((a, b) => a.sortedPos.compareTo(b.sortedPos));
-    }
 
     super.initState();
+    if (c.resumeProfile.workDetails.isNotEmpty) {
+      workDetails = c.resumeProfile.workDetails;
+      workDetails.sort((a, b) => a.sortedPos.compareTo(b.sortedPos));
+      setState(() {});
+    }
   }
 
   @override

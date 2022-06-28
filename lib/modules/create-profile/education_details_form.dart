@@ -21,12 +21,13 @@ class _EducationDetailsFormState extends State<EducationDetailsForm> {
   @override
   void initState() {
     // TODO: implement initState
-    educationDetails = c.resumeProfile.education;
-    if (educationDetails.isNotEmpty) {
-      educationDetails.sort((a, b) => a.sortedPos.compareTo(b.sortedPos));
-    }
 
     super.initState();
+    if (c.resumeProfile.education.isNotEmpty) {
+      educationDetails = c.resumeProfile.education;
+      educationDetails.sort((a, b) => a.sortedPos.compareTo(b.sortedPos));
+    }
+    setState(() {});
   }
 
   @override

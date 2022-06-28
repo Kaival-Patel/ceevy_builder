@@ -23,8 +23,13 @@ class _SkillDetailsFormState extends State<SkillDetailsForm> {
   @override
   void initState() {
     // TODO: implement initState
-    skillDetails = c.resumeProfile.skillDetails;
+
     super.initState();
+
+    if (c.resumeProfile.skillDetails.isNotEmpty) {
+      skillDetails = c.resumeProfile.skillDetails;
+      setState(() {});
+    }
   }
 
   @override
