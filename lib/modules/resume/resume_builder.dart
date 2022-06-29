@@ -111,7 +111,8 @@ class ResumeBuilder extends m.StatelessWidget {
     try {
       final ttf = await fontFromAssetBundle('assets/fonts/Gilroy-Regular.ttf');
       final pdf = Document(title: '${resumeModel.resumeTitle}');
-      pdf.addPage(resumeModel.pdfDocument(c.selectedProfile(), font: ttf));
+      pdf.addPage(
+          await resumeModel.pdfDocument(c.selectedProfile(), font: ttf));
       final file = File("/storage/emulated/0/example.pdf");
       await file.writeAsBytes(await pdf.save());
       snackWithButton(

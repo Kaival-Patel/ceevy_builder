@@ -19,6 +19,7 @@ class AppAssets {
   static const String profile_5 = '$baseImage/profile_5.png';
   static const String profile_6 = '$baseImage/profile_6.png';
   static const String profiles = '$baseImage/profiles.png';
+  static const String mirageResumeBg = '$baseImage/mirage_resume_bg.png';
 
   //****ICONS****/
   static const String baseIcons = 'assets/icons';

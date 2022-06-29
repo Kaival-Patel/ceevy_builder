@@ -5,6 +5,7 @@ import 'package:resume_builder/models/resume/resume_model.dart';
 import 'package:resume_builder/modules/resume/simple/aztec/aztec.dart';
 import 'package:resume_builder/styles/app-assets.dart';
 import 'package:resume_builder/utils/classes/resume_aztec_class.dart';
+import 'package:resume_builder/utils/classes/resume_mirage_class.dart';
 
 DataRepo dataRepo = Get.put(DataRepo(), permanent: true);
 
@@ -50,6 +51,7 @@ class DataRepo extends GetxController {
       asset: AppAssets.modern_ct,
       status: 1,
     );
+    modern_ct.resumeList = [MirageResume()];
     categories = [...trendingCategories, simple_ct, modern_ct];
   }
 }
