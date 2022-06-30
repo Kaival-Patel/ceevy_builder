@@ -21,14 +21,14 @@ class MiragePdf {
             .asUint8List()
         : await File(resumeProfile.pictureAsset).readAsBytes();
     TtfFont parsedNormalFont =
-        font ?? await fontFromAssetBundle('assets/fonts/Gilroy-Regular.ttf');
+        await fontFromAssetBundle('assets/fonts/Gilroy-Regular.ttf');
     TtfFont parsedBoldFont =
-        font ?? await fontFromAssetBundle('assets/fonts/Gilroy-ExtraBold.ttf');
+        await fontFromAssetBundle('assets/fonts/Gilroy-Bold.ttf');
     TextStyle bodyStyle =
-        TextStyle(fontSize: 11, fontNormal: Font.ttf(parsedNormalFont.data));
+        TextStyle(fontSize: 7, fontNormal: Font.ttf(parsedNormalFont.data));
     TextStyle headStyle = TextStyle(
-        letterSpacing: 1.5,
-        fontSize: 15,
+        letterSpacing: 1.2,
+        fontSize: 11,
         fontBold: Font.ttf(parsedBoldFont.data),
         fontWeight: FontWeight.bold);
     return Page(
@@ -50,6 +50,7 @@ class MiragePdf {
                     Row(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
+                          SizedBox(width: 10),
                           ClipOval(
                               child: Image(MemoryImage(userImage),
                                   height: 90, width: 90, fit: BoxFit.cover)),
@@ -66,28 +67,85 @@ class MiragePdf {
                                 ),
                                 Text(
                                   "${resumeProfile.personalDetails.positionTitle.toUpperCase()}",
-                                  style: headStyle.copyWith(
-                                    fontSize: 8,
-                                  ),
+                                  style: bodyStyle.copyWith(
+                                      fontSize: 8, letterSpacing: 1.5),
                                 ),
                               ])
                         ]),
-                    SizedBox(height: 20),
+                    SizedBox(height: 45),
                     Row(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
+                          SizedBox(width: 10),
                           Expanded(
                               child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
-                                Text("CONTACT", style: headStyle),
-                                SizedBox(height: 5),
+                                //CONTACT
+                                Text("CONTACT",
+                                    style: bodyStyle.copyWith(
+                                        fontWeight: FontWeight.bold,
+                                        letterSpacing: 1.3,
+                                        fontBold: parsedBoldFont)),
+                                SizedBox(height: 7),
                                 Text(resumeProfile.personalDetails.contact,
                                     style: bodyStyle),
+                                SizedBox(height: 2),
                                 Text(resumeProfile.personalDetails.email,
                                     style: bodyStyle),
+                                SizedBox(height: 2),
                                 Text(resumeProfile.personalDetails.address,
                                     style: bodyStyle),
+                                SizedBox(height: 20),
+                                //EDUCATION
+                                Text("EDUCATION",
+                                    style: bodyStyle.copyWith(
+                                        fontWeight: FontWeight.bold,
+                                        letterSpacing: 1.3,
+                                        fontBold: parsedBoldFont)),
+                                SizedBox(height: 7),
+                                for (int index = 0;
+                                    index < resumeProfile.education.length;
+                                    index++)
+                                  Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        Text(
+                                            resumeProfile
+                                                .education[index].title,
+                                            style: bodyStyle),
+                                        Text(
+                                            resumeProfile
+                                                .education[index].place,
+                                            style: bodyStyle),
+                                        Text(
+                                            resumeProfile.education[index].time,
+                                            style: bodyStyle),
+                                        SizedBox(height: 3),
+                                      ]),
+                                //SKILLS
+                                SizedBox(height: 20),
+                                Text("SKILLS",
+                                    style: bodyStyle.copyWith(
+                                        fontWeight: FontWeight.bold,
+                                        letterSpacing: 1.3,
+                                        fontBold: parsedBoldFont)),
+                                SizedBox(height: 7),
+                                for (int index = 0;
+                                    index < resumeProfile.skillDetails.length;
+                                    index++)
+                                  Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        Text(
+                                            "• " +
+                                                resumeProfile
+                                                    .skillDetails[index].title,
+                                            style: bodyStyle),
+                                        SizedBox(height: 3),
+                                      ]),
                               ])),
                           SizedBox(width: 10),
                           Expanded(
@@ -95,8 +153,65 @@ class MiragePdf {
                               child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
-                                    Text("CONTACT",
-                                        style: TextStyle(letterSpacing: 1.5)),
+                                    //CONTACT
+                                    Text("PROFILE",
+                                        style: bodyStyle.copyWith(
+                                            fontWeight: FontWeight.bold,
+                                            letterSpacing: 1.3,
+                                            fontBold: parsedBoldFont)),
+                                    SizedBox(height: 7),
+                                    Text(
+                                        resumeProfile
+                                            .sumamryDetails.introduction,
+                                        style: bodyStyle),
+                                    SizedBox(height: 20),
+                                    //EDUCATION
+                                    Text("PROFESSIONAL EXPERIENCE",
+                                        style: bodyStyle.copyWith(
+                                            fontWeight: FontWeight.bold,
+                                            letterSpacing: 1.3,
+                                            fontBold: parsedBoldFont)),
+                                    SizedBox(height: 7),
+                                    for (int index = 0;
+                                        index <
+                                            resumeProfile.workDetails.length;
+                                        index++)
+                                      Column(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          children: [
+                                            Text(
+                                                resumeProfile
+                                                    .workDetails[index].title
+                                                    .toUpperCase(),
+                                                style: headStyle.copyWith(
+                                                    fontSize: 6)),
+                                            SizedBox(height: 1),
+                                            Text(
+                                                resumeProfile.workDetails[index]
+                                                        .place +
+                                                    " | " +
+                                                    resumeProfile
+                                                        .workDetails[index]
+                                                        .time,
+                                                style: bodyStyle),
+                                            SizedBox(height: 3),
+                                            for (int i = 0;
+                                                i <
+                                                    resumeProfile
+                                                        .workDetails[index]
+                                                        .experience
+                                                        .length;
+                                                i++)
+                                              Text(
+                                                  "• " +
+                                                      resumeProfile
+                                                          .workDetails[index]
+                                                          .experience[i],
+                                                  style: bodyStyle),
+                                            SizedBox(height: 0.5),
+                                            SizedBox(height: 3),
+                                          ]),
                                   ])),
                         ])
                   ]),

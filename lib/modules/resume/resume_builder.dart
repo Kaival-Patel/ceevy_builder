@@ -113,20 +113,23 @@ class ResumeBuilder extends m.StatelessWidget {
       final pdf = Document(title: '${resumeModel.resumeTitle}');
       pdf.addPage(
           await resumeModel.pdfDocument(c.selectedProfile(), font: ttf));
-      final file = File("/storage/emulated/0/example.pdf");
-      await file.writeAsBytes(await pdf.save());
-      snackWithButton(
-          msg: 'Resume Downloaded',
-          type: SnackType.Success,
-          textButton: m.TextButton(
-              onPressed: () async {
-                await OpenFile.open(file.path);
-              },
-              child: m.Text(
-                "Open",
-                style: m.TextStyle(color: m.Colors.white),
-              )));
-      Logger().d(file.path);
+      // final file = File("/storage/emulated/0/example.pdf");
+      // await file.writeAsBytes(await pdf.save());
+      // snackWithButton(
+      //     msg: 'Resume Downloaded',
+      //     type: SnackType.Success,
+      //     textButton: m.TextButton(
+      //         onPressed: () async {
+      //           await OpenFile.open(file.path);
+      //         },
+      //         child: m.Text(
+      //           "Open",
+      //           style: m.TextStyle(color: m.Colors.white),
+      //         )));
+      // Logger().d(file.path);
+      Get.to(PdfPreview(
+        build: (format) => pdf.save(),
+      ));
     } catch (err) {
       Logger().e(err);
       snack(
