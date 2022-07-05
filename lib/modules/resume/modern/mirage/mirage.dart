@@ -6,6 +6,7 @@ import 'package:resume_builder/styles/app-assets.dart';
 
 class Mirage extends StatefulWidget {
   ResumeProfile resumeProfile;
+
   Mirage({required this.resumeProfile, Key? key}) : super(key: key);
 
   @override
@@ -30,12 +31,13 @@ class _MirageState extends State<Mirage> {
   @override
   Widget build(BuildContext context) {
     return Container(
+      height: context.height,
       decoration: BoxDecoration(
           image: DecorationImage(
               image: AssetImage(
                 AppAssets.mirageResumeBg,
               ),
-              fit: BoxFit.cover)),
+              alignment: Alignment.topCenter,fit: BoxFit.fill)),
       child: Padding(
         padding: const EdgeInsets.all(8.0),
         child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
