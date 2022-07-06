@@ -103,26 +103,36 @@ class TrendingCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      width: 200,
-      child: Stack(
-        children: [
-          Image.asset(
-            bgAsset,
-            width: 200,
-          ),
-          Center(
-            child: ClipRRect(
-              borderRadius: BorderRadius.circular(5),
-              child: Image.asset(
-                category.asset,
-                height: 200,
-                width: 130,
-                fit: BoxFit.contain,
-              ),
+    return InkWell(
+      onTap: category.resumeList.isEmpty
+          ? null
+          : () {
+        Get.to(ResumeList(
+          category: category,
+        ));
+      },
+      borderRadius: BorderRadius.circular(10),
+      child: Container(
+        width: 200,
+        child: Stack(
+          children: [
+            Image.asset(
+              bgAsset,
+              width: 200,
             ),
-          )
-        ],
+            Center(
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(5),
+                child: Image.asset(
+                  category.asset,
+                  height: 200,
+                  width: 130,
+                  fit: BoxFit.contain,
+                ),
+              ),
+            )
+          ],
+        ),
       ),
     );
   }
