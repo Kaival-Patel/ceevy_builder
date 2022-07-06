@@ -18,7 +18,8 @@ class ResumeBuilderController extends GetxController {
       selectedProfile(c.resumeProfileMap.values.first);
     } else {
       await 0.5.delay();
-      Get.bottomSheet(CreateProfileSuggestion(), isScrollControlled: true);
+      await Get.bottomSheet(CreateProfileSuggestion(), isScrollControlled: true);
+      c.fetchProfiles();
     }
   }
 }

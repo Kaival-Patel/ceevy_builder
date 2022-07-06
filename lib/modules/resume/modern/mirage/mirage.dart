@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:resume_builder/models/profile/resume_profile_model.dart';
 import 'package:resume_builder/models/resume/resume_model.dart';
 import 'package:get/get.dart';
+import 'dart:io';
 import 'package:resume_builder/styles/app-assets.dart';
 
 class Mirage extends StatefulWidget {
@@ -28,6 +29,10 @@ class _MirageState extends State<Mirage> {
     }
   }
 
+  var subHeadStyle =
+      TextStyle(fontSize: 9, fontWeight: FontWeight.bold, letterSpacing: 1.2);
+  var subBodyStyle = TextStyle(fontSize: 7);
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -37,209 +42,178 @@ class _MirageState extends State<Mirage> {
               image: AssetImage(
                 AppAssets.mirageResumeBg,
               ),
-              alignment: Alignment.topCenter,fit: BoxFit.fill)),
+              alignment: Alignment.topCenter,
+              fit: BoxFit.fill)),
       child: Padding(
         padding: const EdgeInsets.all(8.0),
-        child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-          Text(
-            "${widget.resumeProfile.personalDetails.name.toUpperCase()}",
-            style: TextStyle(fontSize: 26, fontWeight: FontWeight.bold),
-          ),
-          SizedBox(
-            height: 5,
-          ),
-          Text(
-            "${widget.resumeProfile.personalDetails.address}",
-            style: TextStyle(fontSize: 12, color: Colors.grey),
-          ),
-          Divider(
-            thickness: 2,
-            color: context.theme.accentColor,
-          ),
-          SizedBox(
-            height: 5,
-          ),
-          Row(
-            crossAxisAlignment: CrossAxisAlignment.start,
+        child: SingleChildScrollView(
+          child: Column(
             children: [
-              Expanded(
-                  flex: 2,
-                  child: Text(
-                    "PROFESSIONAL SUMMARY",
-                    style: TextStyle(fontSize: 13, fontWeight: FontWeight.bold),
-                  )),
               SizedBox(
-                width: 10,
+                height: 5,
               ),
-              Expanded(
-                  flex: 4,
-                  child: Text(
-                    "${widget.resumeProfile.sumamryDetails.introduction}",
-                    style: TextStyle(fontSize: 11),
-                  )),
-            ],
-          ),
-          SizedBox(
-            height: 10,
-          ),
-          Row(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Expanded(
-                  flex: 1,
-                  child: Text(
-                    "SKILLS",
-                    style: TextStyle(fontSize: 13, fontWeight: FontWeight.bold),
-                  )),
-              SizedBox(
-                width: 10,
-              ),
-              Expanded(
-                flex: 2,
-                child: Container(
-                  width: context.width,
-                  child: Wrap(
-                    crossAxisAlignment: WrapCrossAlignment.start,
-                    alignment: WrapAlignment.start,
-                    spacing: 5,
-                    runSpacing: 1,
-                    children: widget.resumeProfile.skillDetails
-                        .map((e) => Text(
-                              "-" + e.title,
-                              style: TextStyle(fontSize: 11),
-                            ))
-                        .toList(),
-                  ),
+              Row(crossAxisAlignment: CrossAxisAlignment.start, children: [
+                SizedBox(
+                  width: 10,
                 ),
-              )
-            ],
-          ),
-          SizedBox(
-            height: 10,
-          ),
-          Row(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Expanded(
-                  flex: 1,
-                  child: Text(
-                    "WORK HISTORY",
-                    style: TextStyle(fontSize: 13, fontWeight: FontWeight.bold),
-                  )),
+                ClipOval(
+                    child: widget.resumeProfile.isAssetPath
+                        ? Image.asset(widget.resumeProfile.pictureAsset,
+                            height: 50, width: 50, fit: BoxFit.cover)
+                        : Image.file(File(widget.resumeProfile.pictureAsset),
+                            height: 50, width: 50, fit: BoxFit.cover)),
+                Spacer(),
+                Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Text(
+                      "${widget.resumeProfile.personalDetails.name.toUpperCase()}",
+                      style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
+                    ),
+                    Center(
+                      child: Text(
+                        "${widget.resumeProfile.personalDetails.positionTitle.toUpperCase()}",
+                        style: TextStyle(fontSize: 8, letterSpacing: 1.2),
+                      ),
+                    )
+                  ],
+                ),
+                Spacer(),
+              ]),
               SizedBox(
-                width: 10,
+                height: 30,
               ),
-              Expanded(
-                flex: 2,
-                child: Container(
-                    width: context.width,
-                    child: ListView.builder(
-                      shrinkWrap: true,
-                      itemBuilder: (context, index) => Padding(
-                        padding: const EdgeInsets.only(bottom: 5.0),
-                        child: Column(
+              Row(
+                children: [
+                  SizedBox(
+                    width: 5,
+                  ),
+                  Expanded(
+                    flex: 1,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text('CONTACT', style: subHeadStyle),
+                        SizedBox(
+                          height: 7,
+                        ),
+                        Text(
+                          widget.resumeProfile.personalDetails.contact,
+                          style: subBodyStyle,
+                        ),
+                        Text(widget.resumeProfile.personalDetails.email,
+                            style: subBodyStyle),
+                        Text(widget.resumeProfile.personalDetails.address,
+                            style: subBodyStyle),
+                        SizedBox(
+                          height: 12,
+                        ),
+                        Text('EDUCATION', style: subHeadStyle),
+                        SizedBox(
+                          height: 7,
+                        ),
+                        for (int i = 0;
+                            i < widget.resumeProfile.education.length;
+                            i++)
+                          Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Text(
-                                widget.resumeProfile.workDetails[index].time,
-                                style: TextStyle(
-                                    fontSize: 11,
-                                    color: context.theme.disabledColor),
+                                widget.resumeProfile.education[i].title,
+                                style: subBodyStyle,
                               ),
-                              Row(
-                                children: [
-                                  Text(
-                                    widget
-                                        .resumeProfile.workDetails[index].title,
-                                    style: TextStyle(
-                                        fontSize: 11,
-                                        fontWeight: FontWeight.bold),
-                                  ),
-                                  Text(
-                                    " | " +
-                                        widget.resumeProfile.workDetails[index]
-                                            .place,
-                                    style: TextStyle(
-                                      fontSize: 11,
-                                    ),
-                                  ),
-                                ],
+                              Text(widget.resumeProfile.education[i].place,
+                                  style: subBodyStyle),
+                              Text(widget.resumeProfile.education[i].time,
+                                  style: subBodyStyle),
+                              SizedBox(
+                                height: 5,
                               ),
-                              for (int i = 0;
-                                  i <
-                                      widget.resumeProfile.workDetails[index]
-                                          .experience.length;
-                                  i++)
-                                Text(
-                                  "- " +
-                                      "${widget.resumeProfile.workDetails[index].experience[i]}",
-                                  style: TextStyle(
-                                    fontSize: 11,
-                                  ),
-                                ),
-                            ]),
-                      ),
-                      itemCount: widget.resumeProfile.workDetails.length,
-                    )),
-              )
-            ],
-          ),
-          SizedBox(
-            height: 5,
-          ),
-          Row(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Expanded(
-                  flex: 1,
-                  child: Text(
-                    "EDUCATION",
-                    style: TextStyle(fontSize: 13, fontWeight: FontWeight.bold),
-                  )),
-              SizedBox(
-                width: 10,
-              ),
-              Expanded(
-                flex: 2,
-                child: Container(
-                    width: context.width,
-                    child: ListView.builder(
-                      shrinkWrap: true,
-                      itemBuilder: (context, index) => Padding(
-                        padding: const EdgeInsets.only(bottom: 5.0),
-                        child: Column(
+                            ],
+                          ),
+                        SizedBox(
+                          height: 12,
+                        ),
+                        Text('SKILLS', style: subHeadStyle),
+                        SizedBox(
+                          height: 7,
+                        ),
+                        for (int j = 0;
+                            j < widget.resumeProfile.skillDetails.length;
+                            j++)
+                          Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Text(
-                                widget.resumeProfile.education[index].time,
-                                style: TextStyle(
-                                    fontSize: 11,
-                                    color: context.theme.disabledColor),
+                                "• " + widget.resumeProfile.skillDetails[j].title,
+                                style: subBodyStyle,
                               ),
-                              Column(
-                                children: [
-                                  Text(
-                                    widget.resumeProfile.education[index].title,
-                                    style: TextStyle(
-                                        fontSize: 11,
-                                        fontWeight: FontWeight.bold),
-                                  ),
-                                  Text(
-                                    widget.resumeProfile.education[index].place,
-                                    style: TextStyle(
-                                      fontSize: 11,
-                                    ),
-                                  ),
-                                ],
+                              SizedBox(
+                                height: 5,
                               ),
-                            ]),
-                      ),
-                      itemCount: widget.resumeProfile.education.length,
-                    )),
+                            ],
+                          ),
+                      ],
+                    ),
+                  ),
+                  SizedBox(
+                    width: 30,
+                  ),
+                  Expanded(
+                    flex: 3,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text('PROFILE', style: subHeadStyle),
+                        SizedBox(
+                          height: 7,
+                        ),
+                        Text(
+                          widget.resumeProfile.sumamryDetails.introduction,
+                          style: subBodyStyle,
+                        ),
+                        SizedBox(
+                          height: 12,
+                        ),
+                        Text('PROFESSIONAL EXPERIENCE', style: subHeadStyle),
+                        SizedBox(
+                          height: 7,
+                        ),
+                        for (int i = 0;
+                            i < widget.resumeProfile.workDetails.length;
+                            i++)
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                widget.resumeProfile.workDetails[i].title,
+                                style: subBodyStyle,
+                              ),
+                              Text(
+                                  widget.resumeProfile.workDetails[i].place +
+                                      " | " +
+                                      widget.resumeProfile.workDetails[i].time,
+                                  style: subBodyStyle),
+                              SizedBox(height: 5,),
+                              for(int k=0;k<widget.resumeProfile.workDetails[i].experience.length;k++)
+                                Text("• " +widget.resumeProfile.workDetails[i].experience[k],
+                                    style: subBodyStyle),
+                              SizedBox(
+                                height: 5,
+                              ),
+                            ],
+                          ),
+                        SizedBox(
+                          height: 12,
+                        ),
+                      ],
+                    ),
+                  )
+                ],
               )
             ],
           ),
-        ]),
+        ),
       ),
     );
   }
