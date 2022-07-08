@@ -27,6 +27,11 @@ class OverpassPdf {
         fontSize: 9,
         color: AppColors.getPdfColor(m.Colors.white),
         fontNormal: Font.ttf(parsedNormalFont.data));
+    TextStyle lmedStyle = TextStyle(
+        fontSize: 11,
+        color: AppColors.getPdfColor(m.Colors.white),
+        fontWeight: FontWeight.bold,
+        fontNormal: Font.ttf(parsedNormalFont.data));
     TextStyle lheadStyle = TextStyle(
         fontSize: 13,
         color: AppColors.getPdfColor(m.Colors.white),
@@ -66,13 +71,59 @@ class OverpassPdf {
                         SizedBox(height: 25),
                         Padding(
                             padding: EdgeInsets.symmetric(horizontal: 30),
-                            child: Text("ABOUT ME", style: lheadStyle)),
+                            child: Text("ABOUT ME",
+                                style: lbodyStyle.copyWith(
+                                    fontSize: lheadStyle.fontSize))),
                         SizedBox(height: 10),
                         Padding(
                           padding: EdgeInsets.symmetric(horizontal: 30),
                           child: Text(resumeProfile.sumamryDetails.introduction,
                               style: lbodyStyle),
                         ),
+                        SizedBox(height: 25),
+                        Padding(
+                          padding: EdgeInsets.symmetric(horizontal: 30),
+                          child: Divider(
+                              color:
+                                  AppColors.getPdfColor(m.Colors.grey[700]!)),
+                        ),
+                        SizedBox(height: 25),
+                        Padding(
+                            padding: EdgeInsets.symmetric(horizontal: 30),
+                            child: Text("CONTACTS", style: lheadStyle)),
+                        SizedBox(height: 10),
+                        Padding(
+                            padding: EdgeInsets.symmetric(horizontal: 30),
+                            child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text("Phone",style: lmedStyle),
+                                  Text(resumeProfile.personalDetails.contact,style: lbodyStyle),
+                                  SizedBox(height: 3),
+
+                                  Text("Email",style: lmedStyle),
+                                  Text(resumeProfile.personalDetails.email,style: lbodyStyle),
+                                  SizedBox(height: 3),
+
+                                  Text("Address",style: lmedStyle),
+                                  Text(resumeProfile.personalDetails.address,style: lbodyStyle),
+                                  SizedBox(height: 3),
+                                ])),
+                        SizedBox(height: 25),
+                        Padding(
+                            padding: EdgeInsets.symmetric(horizontal: 30),
+                            child: Text("SKILLS", style: lheadStyle)),
+                        SizedBox(height: 10),
+                        Padding(
+                            padding: EdgeInsets.symmetric(horizontal: 30),
+                            child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: resumeProfile.skillDetails
+                                    .map((e) => Padding(
+                                        padding: EdgeInsets.only(bottom: 3),
+                                        child: Text("• ${e.title}",
+                                            style: lbodyStyle)))
+                                    .toList())),
                       ]))),
           Expanded(
               flex: 2,
