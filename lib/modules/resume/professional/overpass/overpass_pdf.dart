@@ -166,9 +166,9 @@ class OverpassPdf {
                                       crossAxisAlignment:
                                           CrossAxisAlignment.start,
                                       children: [
-                                        Column(
+                                        Expanded(child: Column(
                                             crossAxisAlignment:
-                                                CrossAxisAlignment.start,
+                                            CrossAxisAlignment.start,
                                             children: [
                                               Text(
                                                   resumeProfile
@@ -178,12 +178,13 @@ class OverpassPdf {
                                                   resumeProfile
                                                       .workDetails[i].time,
                                                   style: dbodyStyle),
-                                            ]),
+                                            ]),),
                                         SizedBox(width: 30),
-                                        Column(
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.start,
-                                            children: [
+                                        Expanded(
+                                            child: Column(
+                                                crossAxisAlignment:
+                                                    CrossAxisAlignment.start,
+                                                children: [
                                               Text(
                                                   resumeProfile
                                                       .workDetails[i].title,
@@ -199,7 +200,8 @@ class OverpassPdf {
                                                     resumeProfile.workDetails[i]
                                                         .experience[j],
                                                     style: dbodyStyle),
-                                            ])
+                                                SizedBox(height: 10),
+                                            ]))
                                       ]),
                                 SizedBox(height: 10),
                               ])
@@ -219,29 +221,33 @@ class OverpassPdf {
                                       crossAxisAlignment:
                                           CrossAxisAlignment.start,
                                       children: [
-                                        Column(
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.start,
-                                            children: [
-                                              Text(
-                                                  resumeProfile
-                                                      .education[i].place,
-                                                  style: dmedStyle),
-                                              Text(
-                                                  resumeProfile
-                                                      .education[i].time,
-                                                  style: dbodyStyle),
-                                            ]),
+                                        Expanded(
+                                          child: Column(
+                                              crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                              children: [
+                                                Text(
+                                                    resumeProfile
+                                                        .education[i].place,
+                                                    style: dmedStyle),
+                                                Text(
+                                                    resumeProfile
+                                                        .education[i].time,
+                                                    style: dbodyStyle),
+                                              ]),
+                                        ),
                                         SizedBox(width: 30),
-                                        Column(
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.start,
-                                            children: [
-                                              Text(
-                                                  resumeProfile
-                                                      .education[i].title,
-                                                  style: dmedStyle),
-                                            ])
+                                        Expanded(
+                                          child: Column(
+                                              crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                              children: [
+                                                Text(
+                                                    resumeProfile
+                                                        .education[i].title,
+                                                    style: dmedStyle),
+                                              ])
+                                        )
                                       ])
                               ])
                         ]

@@ -84,7 +84,9 @@ class ResumeBuilder extends m.StatelessWidget {
                             downloadResume();
                           },
                           child: c.isDownloading()
-                              ? Loader(size: 20,)
+                              ? Loader(
+                                  size: 20,
+                                )
                               : m.Row(
                                   mainAxisSize: m.MainAxisSize.min,
                                   children: [
@@ -133,32 +135,15 @@ class ResumeBuilder extends m.StatelessWidget {
   }
 
   downloadResume() async {
-    var permit = Permission.storage;
+    var permit = [Permission.manageExternalStorage, Permission.storage];
     var req = await permit.request();
-    switch (req) {
-      case PermissionStatus.denied:
-        snack(msg: 'Storage access denied', type: SnackType.Error);
-        await 2.delay();
-        await openAppSettings();
-        break;
-      case PermissionStatus.granted:
-        _saveResume();
-        break;
-      case PermissionStatus.restricted:
-        snack(msg: 'Storage access restricted', type: SnackType.Error);
-        await 2.delay();
-        await openAppSettings();
-        break;
-      case PermissionStatus.limited:
-        snack(msg: 'Storage access limited', type: SnackType.Error);
-        await 2.delay();
-        await openAppSettings();
-        break;
-      case PermissionStatus.permanentlyDenied:
-        snack(msg: 'Storage access denied', type: SnackType.Error);
-        await 2.delay();
-        await openAppSettings();
-        break;
+    if (req[Permission.storage] == PermissionStatus.granted &&
+        req[Permission.manageExternalStorage] == PermissionStatus.granted) {
+      _saveResume();
+    } else {
+      snack(msg: 'Storage access denied', type: SnackType.Error);
+      await 2.delay();
+      await openAppSettings();
     }
   }
 
@@ -379,8 +364,13 @@ Future<File> saveResumeAsync(Map<String, dynamic> params) async {
   try {
     ResumeProfile profile = params['profile'];
     Document doc = params['doc'];
+    var dir = Directory("/storage/emulated/0/Ceevy Builder")
+        .createSync(recursive: true);
+    await File(
+            "/storage/emulated/0/Ceevy Builder/${profile.personalDetails.name} resume.pdf")
+        .create(recursive: true);
     final file = File(
-        "/storage/emulated/0/${profile.personalDetails.name} resume.pdf");
+        "/storage/emulated/0/Ceevy Builder/${profile.personalDetails.name} resume.pdf");
     return await file.writeAsBytes(await doc.save());
   } catch (e) {
     logger.e(e);

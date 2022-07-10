@@ -180,10 +180,11 @@ class _OverpassState extends State<Overpass> {
                                                 crossAxisAlignment:
                                                 CrossAxisAlignment.start,
                                                 children: [
+
                                                   Text(
                                                       widget.resumeProfile
                                                           .workDetails[i].title,
-                                                      style: dmedStyle),
+                                                      style: dmedStyle.copyWith(fontWeight: FontWeight.bold)),
                                                   for (int j = 0;
                                                   j <
                                                       widget.resumeProfile
@@ -195,10 +196,11 @@ class _OverpassState extends State<Overpass> {
                                                         widget.resumeProfile.workDetails[i]
                                                             .experience[j],
                                                         style: dbodyStyle),
+                                                  SizedBox(height: 15),
                                                 ]),
                                           )
                                         ]),
-                                  SizedBox(height: 10),
+
                                 ])
                           ],
                           if (widget.resumeProfile.education.isNotEmpty) ...[

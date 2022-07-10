@@ -24,7 +24,11 @@ class Browse extends StatelessWidget {
             SizedBox(
               height: 15,
             ),
-            CategoriesBar()
+            CategoriesBar(),
+            SizedBox(
+              height: 15,
+            ),
+            ComingSoonBar(),
           ],
         ),
       ),
@@ -239,6 +243,34 @@ class CategoryCard extends StatelessWidget {
           )
         ]),
       ),
+    );
+  }
+}
+
+
+class ComingSoonBar extends StatelessWidget {
+  ComingSoonBar({Key? key}) : super(key: key);
+  var c = Get.find<BrowseController>();
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Container(
+            height: 180,
+            child: ListView.builder(
+              itemCount: dataRepo.categories.length,
+              physics: BouncingScrollPhysics(),
+              shrinkWrap: true,
+              scrollDirection: Axis.horizontal,
+              itemBuilder: (context, index) => Padding(
+                  padding:
+                  const EdgeInsets.symmetric(horizontal: 12.0, vertical: 4),
+                  child: CategoryCard(
+                    category: dataRepo.categories[index],
+                  )),
+            ))
+      ],
     );
   }
 }
