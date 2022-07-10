@@ -34,4 +34,6 @@ class AppAssets {
   static const String reloadIcon = '$baseIcons/reload.svg';
   static const String plusIcon = '$baseIcons/plus.svg';
   static const String dragIcon = '$baseIcons/drag.svg';
+  static const String downloadIcon = '$baseIcons/download.svg';
+  static const String printerIcon = '$baseIcons/printer.svg';
 }

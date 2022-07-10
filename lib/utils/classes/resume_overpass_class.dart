@@ -5,6 +5,7 @@ import 'package:resume_builder/models/profile/resume_profile_model.dart';
 import 'package:resume_builder/models/resume/base_resume_class.dart';
 import 'package:resume_builder/modules/resume/modern/mirage/mirage.dart';
 import 'package:resume_builder/modules/resume/modern/mirage/mirage_pdf.dart';
+import 'package:resume_builder/modules/resume/professional/overpass/overpass.dart';
 import 'package:resume_builder/modules/resume/professional/overpass/overpass_pdf.dart';
 import 'package:resume_builder/modules/resume/simple/aztec/aztec.dart';
 import 'package:resume_builder/modules/resume/simple/aztec/aztec_pdf.dart';
@@ -13,7 +14,7 @@ import 'package:resume_builder/styles/app-assets.dart';
 class OverpassResume implements Resume {
   @override
   // TODO: implement bodyWidget
-  Widget bodyWidget(ResumeProfile profile) => Mirage(
+  Widget bodyWidget(ResumeProfile profile) =>Overpass(
     resumeProfile:
     profile.isValid ? profile : ResumeProfile().defaultProfile,
   );

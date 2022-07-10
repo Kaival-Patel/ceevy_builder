@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart' as m;
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
@@ -18,12 +19,17 @@ import 'package:resume_builder/modules/resume/simple/aztec/aztec.dart';
 import 'package:resume_builder/modules/resume/simple/aztec/aztec_pdf.dart';
 import 'package:resume_builder/styles/app-assets.dart';
 import 'package:resume_builder/styles/app-colors.dart';
+import 'package:resume_builder/utils/constants/constants.dart';
+import 'package:resume_builder/utils/widgets/loader.dart';
 import 'package:resume_builder/utils/widgets/snackbar.dart';
+import 'dart:isolate';
 
 class ResumeBuilder extends m.StatelessWidget {
   Resume resumeModel;
+
   ResumeBuilder({required this.resumeModel, m.Key? key}) : super(key: key);
   var c = Get.put(ResumeBuilderController());
+
   @override
   m.Widget build(m.BuildContext context) {
     return m.Scaffold(
@@ -63,13 +69,62 @@ class ResumeBuilder extends m.StatelessWidget {
           m.SizedBox(
             height: 5,
           ),
-          m.Padding(
-            padding: m.EdgeInsets.symmetric(horizontal: 10),
-            child: m.ElevatedButton(
-                onPressed: () {
-                  downloadResume();
-                },
-                child: m.Text("Download Resume")),
+          m.Container(
+            height: 40,
+            margin: m.EdgeInsets.symmetric(horizontal: 10),
+            width: context.width,
+            child: m.Row(
+              children: [
+                m.Expanded(
+                  child: m.Container(
+                    height: 40,
+                    child: Obx(
+                      () => m.ElevatedButton(
+                          onPressed: () {
+                            downloadResume();
+                          },
+                          child: c.isDownloading()
+                              ? Loader(size: 20,)
+                              : m.Row(
+                                  mainAxisSize: m.MainAxisSize.min,
+                                  children: [
+                                    m.Text("Download"),
+                                    m.SizedBox(
+                                      width: 7,
+                                    ),
+                                    SvgPicture.asset(AppAssets.downloadIcon,
+                                        height: 15,
+                                        width: 15,
+                                        color: m.Colors.white),
+                                  ],
+                                )),
+                    ),
+                  ),
+                ),
+                m.SizedBox(
+                  width: 5,
+                ),
+                m.Expanded(
+                  child: m.Container(
+                    height: 40,
+                    child: m.ElevatedButton(
+                        onPressed: () {
+                          _printResume();
+                        },
+                        child: m.Row(
+                          mainAxisSize: m.MainAxisSize.min,
+                          children: [
+                            m.Text("Print"),
+                            m.SizedBox(
+                              width: 7,
+                            ),
+                            m.Icon(m.Icons.print_outlined)
+                          ],
+                        )),
+                  ),
+                ),
+              ],
+            ),
           ),
           m.SizedBox(
             height: 5,
@@ -109,24 +164,44 @@ class ResumeBuilder extends m.StatelessWidget {
 
   _saveResume() async {
     try {
+      if (!c.isDownloading()) {
+        c.isDownloading(true);
+        final pdf = Document(title: '${resumeModel.resumeTitle}');
+        pdf.addPage(await resumeModel.pdfDocument(c.selectedProfile(),
+            font:
+                await fontFromAssetBundle('assets/fonts/Gilroy-Regular.ttf')));
+        var file = await compute(
+            saveResumeAsync, {'profile': c.selectedProfile(), 'doc': pdf});
+        snackWithButton(
+            msg: 'Resume Downloaded',
+            type: SnackType.Success,
+            textButton: m.TextButton(
+                onPressed: () async {
+                  await OpenFile.open(file.path);
+                },
+                child: m.Text(
+                  "Open",
+                  style: m.TextStyle(color: m.Colors.white),
+                )));
+        Logger().d(file.path);
+        c.isDownloading(false);
+      }
+    } catch (err) {
+      Logger().e(err);
+      c.isDownloading(false);
+      snack(
+        msg: 'Failed to Download Resume',
+        type: SnackType.Error,
+      );
+    }
+  }
+
+  _printResume() async {
+    try {
       final ttf = await fontFromAssetBundle('assets/fonts/Gilroy-Regular.ttf');
       final pdf = Document(title: '${resumeModel.resumeTitle}');
       pdf.addPage(
           await resumeModel.pdfDocument(c.selectedProfile(), font: ttf));
-      // final file = File("/storage/emulated/0/example.pdf");
-      // await file.writeAsBytes(await pdf.save());
-      // snackWithButton(
-      //     msg: 'Resume Downloaded',
-      //     type: SnackType.Success,
-      //     textButton: m.TextButton(
-      //         onPressed: () async {
-      //           await OpenFile.open(file.path);
-      //         },
-      //         child: m.Text(
-      //           "Open",
-      //           style: m.TextStyle(color: m.Colors.white),
-      //         )));
-      // Logger().d(file.path);
       Get.to(PdfPreview(
         build: (format) => pdf.save(),
       ));
@@ -191,8 +266,10 @@ class ResumeBuilder extends m.StatelessWidget {
 
 class ProfileCard extends m.StatelessWidget {
   ResumeProfile profile;
+
   ProfileCard({required this.profile, m.Key? key}) : super(key: key);
   var c = Get.find<ResumeBuilderController>();
+
   @override
   m.Widget build(m.BuildContext context) {
     return m.GestureDetector(
@@ -295,5 +372,18 @@ class ProfileCard extends m.StatelessWidget {
         ]),
       ),
     );
+  }
+}
+
+Future<File> saveResumeAsync(Map<String, dynamic> params) async {
+  try {
+    ResumeProfile profile = params['profile'];
+    Document doc = params['doc'];
+    final file = File(
+        "/storage/emulated/0/${profile.personalDetails.name} resume.pdf");
+    return await file.writeAsBytes(await doc.save());
+  } catch (e) {
+    logger.e(e);
+    throw Exception('File Exception');
   }
 }

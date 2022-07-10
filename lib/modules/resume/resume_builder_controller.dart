@@ -6,6 +6,7 @@ import 'package:resume_builder/modules/resume/create_profile_suggestion_dialog.d
 class ResumeBuilderController extends GetxController {
   var c = Get.put(ResumeProfilesController());
   Rx<ResumeProfile> selectedProfile = ResumeProfile().obs;
+  RxBool isDownloading = false.obs;
   @override
   void onInit() {
     // TODO: implement onInit

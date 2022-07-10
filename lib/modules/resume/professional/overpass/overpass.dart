@@ -28,192 +28,231 @@ class _OverpassState extends State<Overpass> {
           .sort((a, b) => a.sortedPos.compareTo(b.sortedPos));
     }
   }
-
-  var subHeadStyle =
-  TextStyle(fontSize: 9, fontWeight: FontWeight.bold, letterSpacing: 1.2);
-  var subBodyStyle = TextStyle(fontSize: 7);
-
+  TextStyle lbodyStyle = TextStyle(
+      fontSize: 9,
+      color: Colors.white,);
+  TextStyle lmedStyle = TextStyle(
+      fontSize: 11,
+      color: Colors.white,
+      fontWeight: FontWeight.w300,);
+  TextStyle lheadStyle = TextStyle(
+      fontSize: 13,
+      color: Colors.white,
+      fontWeight: FontWeight.bold);
+  TextStyle dheadStyle = TextStyle(
+      fontSize: 13,
+      color:Color(0xFF434343),
+      fontWeight: FontWeight.bold);
+  TextStyle dmedStyle = TextStyle(
+      fontSize: 11,
+      color: Color(0xFF434343),
+      fontWeight: FontWeight.w300,);
+  TextStyle dbodyStyle = TextStyle(
+    fontSize: 9,
+    color: Color(0xFF434343),
+  );
   @override
   Widget build(BuildContext context) {
-    return Container(
-      height: context.height,
-      decoration: BoxDecoration(
-          image: DecorationImage(
-              image: AssetImage(
-                AppAssets.mirageResumeBg,
-              ),
-              alignment: Alignment.topCenter,
-              fit: BoxFit.fill)),
-      child: Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: SingleChildScrollView(
-          child: Column(
+    return SingleChildScrollView(
+      child: Column(
+        children: [
+          Row(
             children: [
-              SizedBox(
-                height: 5,
-              ),
-              Row(crossAxisAlignment: CrossAxisAlignment.start, children: [
-                SizedBox(
-                  width: 10,
-                ),
-                ClipOval(
-                    child: widget.resumeProfile.isAssetPath
-                        ? Image.asset(widget.resumeProfile.pictureAsset,
-                        height: 50, width: 50, fit: BoxFit.cover)
-                        : Image.file(File(widget.resumeProfile.pictureAsset),
-                        height: 50, width: 50, fit: BoxFit.cover)),
-                Spacer(),
-                Column(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    Text(
-                      "${widget.resumeProfile.personalDetails.name.toUpperCase()}",
-                      style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
-                    ),
-                    Center(
-                      child: Text(
-                        "${widget.resumeProfile.personalDetails.positionTitle.toUpperCase()}",
-                        style: TextStyle(fontSize: 8, letterSpacing: 1.2),
-                      ),
-                    )
-                  ],
-                ),
-                Spacer(),
-              ]),
-              SizedBox(
-                height: 30,
-              ),
-              Row(
-                children: [
-                  SizedBox(
-                    width: 5,
-                  ),
-                  Expanded(
-                    flex: 1,
+              Expanded(
+                flex: 3,
+                child: Container(
+                  height: context.height,
+                  color: Color(0xFF434343),
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 14.0),
                     child: Column(
+                      mainAxisSize: MainAxisSize.max,
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text('CONTACT', style: subHeadStyle),
                         SizedBox(
-                          height: 7,
+                          height: 10,
+                        ),
+                        Center(
+                          child: widget.resumeProfile.isAssetPath
+                              ? ClipOval(
+                                  child: Image.asset(
+                                  widget.resumeProfile.pictureAsset,
+                                  height: 60,
+                                  width: 60,
+                                  fit: BoxFit.cover,
+                                ))
+                              : ClipOval(
+                                  child: Image.file(
+                                      File(widget.resumeProfile.pictureAsset),
+                                      height: 60,
+                                      width: 60,
+                                      fit: BoxFit.cover),
+                                ),
+                        ),
+                        SizedBox(
+                          height: 15,
                         ),
                         Text(
-                          widget.resumeProfile.personalDetails.contact,
-                          style: subBodyStyle,
+                          'ABOUT ME',
+                          style: lmedStyle
                         ),
-                        Text(widget.resumeProfile.personalDetails.email,
-                            style: subBodyStyle),
-                        Text(widget.resumeProfile.personalDetails.address,
-                            style: subBodyStyle),
-                        SizedBox(
-                          height: 12,
+                        SizedBox(height: 4,),
+                        Text(
+                            widget.resumeProfile.sumamryDetails.introduction,
+                            style: lbodyStyle
                         ),
-                        Text('EDUCATION', style: subHeadStyle),
-                        SizedBox(
-                          height: 7,
-                        ),
-                        for (int i = 0;
-                        i < widget.resumeProfile.education.length;
-                        i++)
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                widget.resumeProfile.education[i].title,
-                                style: subBodyStyle,
-                              ),
-                              Text(widget.resumeProfile.education[i].place,
-                                  style: subBodyStyle),
-                              Text(widget.resumeProfile.education[i].time,
-                                  style: subBodyStyle),
-                              SizedBox(
-                                height: 5,
-                              ),
-                            ],
-                          ),
-                        SizedBox(
-                          height: 12,
-                        ),
-                        Text('SKILLS', style: subHeadStyle),
-                        SizedBox(
-                          height: 7,
-                        ),
-                        for (int j = 0;
-                        j < widget.resumeProfile.skillDetails.length;
-                        j++)
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                "• " + widget.resumeProfile.skillDetails[j].title,
-                                style: subBodyStyle,
-                              ),
-                              SizedBox(
-                                height: 5,
-                              ),
-                            ],
-                          ),
+                        SizedBox(height: 6,),
+                        Divider(color: Colors.grey,),
+                        SizedBox(height: 6,),
+                        Text("CONTACTS", style: lheadStyle),
+                        SizedBox(height: 10),
+                         Column(
+                             crossAxisAlignment: CrossAxisAlignment.start,
+                             children: [
+                               Text("Phone", style: lmedStyle),
+                               Text(widget.resumeProfile.personalDetails.contact,
+                                   style: lbodyStyle),
+                               SizedBox(height: 3),
+                               Text("Email", style: lmedStyle),
+                               Text(widget.resumeProfile.personalDetails.email,
+                                   style: lbodyStyle),
+                               SizedBox(height: 3),
+                               Text("Address", style: lmedStyle),
+                               Text(widget.resumeProfile.personalDetails.address,
+                                   style: lbodyStyle),
+                               SizedBox(height: 3),
+                             ]),
                       ],
                     ),
                   ),
-                  SizedBox(
-                    width: 30,
-                  ),
-                  Expanded(
-                    flex: 3,
+                ),
+              ),
+              Expanded(
+                flex: 5,
+                child: Container(
+                  height:context.height,
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 8.0),
                     child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text('PROFILE', style: subHeadStyle),
-                        SizedBox(
-                          height: 7,
-                        ),
-                        Text(
-                          widget.resumeProfile.sumamryDetails.introduction,
-                          style: subBodyStyle,
-                        ),
-                        SizedBox(
-                          height: 12,
-                        ),
-                        Text('PROFESSIONAL EXPERIENCE', style: subHeadStyle),
-                        SizedBox(
-                          height: 7,
-                        ),
-                        for (int i = 0;
-                        i < widget.resumeProfile.workDetails.length;
-                        i++)
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                widget.resumeProfile.workDetails[i].title,
-                                style: subBodyStyle,
-                              ),
-                              Text(
-                                  widget.resumeProfile.workDetails[i].place +
-                                      " | " +
-                                      widget.resumeProfile.workDetails[i].time,
-                                  style: subBodyStyle),
-                              SizedBox(height: 5,),
-                              for(int k=0;k<widget.resumeProfile.workDetails[i].experience.length;k++)
-                                Text("• " +widget.resumeProfile.workDetails[i].experience[k],
-                                    style: subBodyStyle),
-                              SizedBox(
-                                height: 5,
-                              ),
-                            ],
-                          ),
-                        SizedBox(
-                          height: 12,
-                        ),
-                      ],
-                    ),
-                  )
-                ],
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          SizedBox(height: 10),
+                          Text("${widget.resumeProfile.personalDetails.name}",
+                              style: dheadStyle.copyWith(
+                                  fontWeight: FontWeight.bold, fontSize: 22)),
+                          SizedBox(height: 3),
+                          Text("${widget.resumeProfile.personalDetails.positionTitle}",
+                              style: dbodyStyle),
+                          SizedBox(height: 10),
+                          if (widget.resumeProfile.workDetails.isNotEmpty) ...[
+                            Divider(color: Colors.grey),
+                            SizedBox(height: 10),
+                            Text("WORK EXPERIENCE", style: dheadStyle),
+                            SizedBox(height: 5),
+                            Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  for (int i = 0;
+                                  i < widget.resumeProfile.workDetails.length;
+                                  i++)
+                                    Row(
+                                        crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                        children: [
+                                          Expanded(
+                                            child: Column(
+                                                crossAxisAlignment:
+                                                CrossAxisAlignment.start,
+                                                children: [
+                                                  Text(
+                                                      widget.resumeProfile
+                                                          .workDetails[i].place,
+                                                      style: dmedStyle),
+                                                  Text(
+                                                      widget.resumeProfile
+                                                          .workDetails[i].time,
+                                                      style: dbodyStyle),
+                                                ]),
+                                          ),
+                                          SizedBox(width: 10),
+                                          Expanded(
+                                            child: Column(
+                                                crossAxisAlignment:
+                                                CrossAxisAlignment.start,
+                                                children: [
+                                                  Text(
+                                                      widget.resumeProfile
+                                                          .workDetails[i].title,
+                                                      style: dmedStyle),
+                                                  for (int j = 0;
+                                                  j <
+                                                      widget.resumeProfile
+                                                          .workDetails[i]
+                                                          .experience
+                                                          .length;
+                                                  j++)
+                                                    Text(
+                                                        widget.resumeProfile.workDetails[i]
+                                                            .experience[j],
+                                                        style: dbodyStyle),
+                                                ]),
+                                          )
+                                        ]),
+                                  SizedBox(height: 10),
+                                ])
+                          ],
+                          if (widget.resumeProfile.education.isNotEmpty) ...[
+                            Divider(color: Colors.grey),
+                            SizedBox(height: 10),
+                            Text("EDUCATION", style: dheadStyle),
+                            SizedBox(height: 5),
+                            Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  for (int i = 0;
+                                  i < widget.resumeProfile.education.length;
+                                  i++)
+                                    Row(
+                                        crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                        children: [
+                                          Expanded(
+                                            child: Column(
+                                                crossAxisAlignment:
+                                                CrossAxisAlignment.start,
+                                                children: [
+                                                  Text(
+                                                      widget.resumeProfile
+                                                          .education[i].place,
+                                                      style: dmedStyle),
+                                                  Text(
+                                                      widget.resumeProfile
+                                                          .education[i].time,
+                                                      style: dbodyStyle),
+                                                ]),
+                                          ),
+                                          SizedBox(width: 10),
+                                          Expanded(
+                                            child: Column(
+                                                crossAxisAlignment:
+                                                CrossAxisAlignment.start,
+                                                children: [
+                                                  Text(
+                                                      widget.resumeProfile
+                                                          .education[i].title,
+                                                      style: dmedStyle),
+                                                ]),
+                                          )
+                                        ])
+                                ])
+                          ]
+                        ]),
+                  ),
+                ),
               )
             ],
           ),
-        ),
+        ],
       ),
     );
   }
