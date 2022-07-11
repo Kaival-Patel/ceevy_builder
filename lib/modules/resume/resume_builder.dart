@@ -24,6 +24,8 @@ import 'package:resume_builder/utils/widgets/loader.dart';
 import 'package:resume_builder/utils/widgets/snackbar.dart';
 import 'dart:isolate';
 
+import 'package:resume_builder/utils/widgets/suggestion_widget.dart';
+
 class ResumeBuilder extends m.StatelessWidget {
   Resume resumeModel;
 
@@ -59,6 +61,20 @@ class ResumeBuilder extends m.StatelessWidget {
               }
               return m.Container();
             }),
+            m.PopupMenuButton(
+              itemBuilder: (context) => [
+                m.PopupMenuItem(
+                  child: m.Text("Report Issue"),
+                  value: 1,
+                )
+              ],
+              onSelected: (v){
+                Get.bottomSheet(SuggestionWidget(
+                    title: 'Report Resume Issue',
+                    subject: '${resumeModel.resumeTitle} has some issues',
+                    description: 'So the issue/issues I am facing are '));
+              },
+            )
           ],
         ),
         body: m.Column(children: [
