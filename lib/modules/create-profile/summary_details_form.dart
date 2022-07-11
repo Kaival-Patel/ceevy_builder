@@ -38,31 +38,6 @@ class SummaryDetailsForm extends StatelessWidget {
                   },
                   onChanged: (v) {},
                 ),
-                SizedBox(
-                  height: 10,
-                ),
-                Center(
-                  child: Row(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      Icon(
-                        Icons.info,
-                        size: 15,
-                        color: context.theme.primaryColor,
-                      ),
-                      SizedBox(
-                        width: 5,
-                      ),
-                      Text("Learn More",
-                          style: TextStyle(color: Colors.blue, fontSize: 11)),
-                      Text(
-                        ' about summary details',
-                        style: TextStyle(
-                            fontSize: 11, color: context.theme.disabledColor),
-                      )
-                    ],
-                  ),
-                )
               ],
             ),
           )),

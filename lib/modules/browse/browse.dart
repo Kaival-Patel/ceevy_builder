@@ -4,33 +4,42 @@ import 'package:resume_builder/models/category/category_model.dart';
 import 'package:resume_builder/modules/browse/browse_controller.dart';
 import 'package:resume_builder/modules/resume/resume_list.dart';
 import 'package:resume_builder/repository/data_repo.dart';
+import 'package:resume_builder/styles/app-assets.dart';
+import 'package:resume_builder/utils/widgets/suggestion_widget.dart';
+import 'package:share_plus/share_plus.dart';
 
 class Browse extends StatelessWidget {
   Browse({Key? key}) : super(key: key);
   var c = Get.put(BrowseController());
+
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
-      child: Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            HeaderBar(),
-            SizedBox(
-              height: 15,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                HeaderBar(),
+                SizedBox(
+                  height: 15,
+                ),
+                TrendingCVBar(),
+                SizedBox(
+                  height: 15,
+                ),
+                CategoriesBar(),
+              ],
             ),
-            TrendingCVBar(),
-            SizedBox(
-              height: 15,
-            ),
-            CategoriesBar(),
-            SizedBox(
-              height: 15,
-            ),
-            ComingSoonBar(),
-          ],
-        ),
+          ),
+          SizedBox(
+            height: 15,
+          ),
+          ComingSoonBar(),
+        ],
       ),
     );
   }
@@ -38,6 +47,7 @@ class Browse extends StatelessWidget {
 
 class HeaderBar extends StatelessWidget {
   HeaderBar({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return Row(
@@ -67,6 +77,7 @@ class HeaderBar extends StatelessWidget {
 class TrendingCVBar extends StatelessWidget {
   TrendingCVBar({Key? key}) : super(key: key);
   var c = Get.find<BrowseController>();
+
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -86,13 +97,14 @@ class TrendingCVBar extends StatelessWidget {
               physics: BouncingScrollPhysics(),
               shrinkWrap: true,
               scrollDirection: Axis.horizontal,
-              itemBuilder: (context, index) => Padding(
-                padding:
+              itemBuilder: (context, index) =>
+                  Padding(
+                    padding:
                     const EdgeInsets.symmetric(horizontal: 12.0, vertical: 4),
-                child: TrendingCard(
-                    bgAsset: c.bgAssets[index],
-                    category: dataRepo.trendingCategories[index]),
-              ),
+                    child: TrendingCard(
+                        bgAsset: c.bgAssets[index],
+                        category: dataRepo.trendingCategories[index]),
+                  ),
             ))
       ],
     );
@@ -102,6 +114,7 @@ class TrendingCVBar extends StatelessWidget {
 class TrendingCard extends StatelessWidget {
   String bgAsset;
   CVCategory category;
+
   TrendingCard({required this.bgAsset, required this.category, Key? key})
       : super(key: key);
 
@@ -145,6 +158,7 @@ class TrendingCard extends StatelessWidget {
 class CategoriesBar extends StatelessWidget {
   CategoriesBar({Key? key}) : super(key: key);
   var c = Get.find<BrowseController>();
+
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -174,12 +188,13 @@ class CategoriesBar extends StatelessWidget {
               physics: BouncingScrollPhysics(),
               shrinkWrap: true,
               scrollDirection: Axis.horizontal,
-              itemBuilder: (context, index) => Padding(
-                  padding:
+              itemBuilder: (context, index) =>
+                  Padding(
+                      padding:
                       const EdgeInsets.symmetric(horizontal: 12.0, vertical: 4),
-                  child: CategoryCard(
-                    category: dataRepo.categories[index],
-                  )),
+                      child: CategoryCard(
+                        category: dataRepo.categories[index],
+                      )),
             ))
       ],
     );
@@ -188,6 +203,7 @@ class CategoriesBar extends StatelessWidget {
 
 class CategoryCard extends StatelessWidget {
   CVCategory category;
+
   CategoryCard({required this.category, Key? key}) : super(key: key);
 
   @override
@@ -196,10 +212,10 @@ class CategoryCard extends StatelessWidget {
       onTap: category.resumeList.isEmpty
           ? null
           : () {
-              Get.to(ResumeList(
-                category: category,
-              ));
-            },
+        Get.to(ResumeList(
+          category: category,
+        ));
+      },
       borderRadius: BorderRadius.circular(10),
       child: Container(
         height: 170,
@@ -231,9 +247,9 @@ class CategoryCard extends StatelessWidget {
               height: 40,
               child: Center(
                   child: Text(
-                category.name,
-                style: TextStyle(fontWeight: FontWeight.bold),
-              )),
+                    category.name,
+                    style: TextStyle(fontWeight: FontWeight.bold),
+                  )),
               decoration: BoxDecoration(
                   color: Colors.white,
                   borderRadius: BorderRadius.only(
@@ -247,28 +263,174 @@ class CategoryCard extends StatelessWidget {
   }
 }
 
-
 class ComingSoonBar extends StatelessWidget {
   ComingSoonBar({Key? key}) : super(key: key);
   var c = Get.find<BrowseController>();
+
   @override
   Widget build(BuildContext context) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Container(
-            height: 180,
-            child: ListView.builder(
-              itemCount: dataRepo.categories.length,
-              physics: BouncingScrollPhysics(),
-              shrinkWrap: true,
-              scrollDirection: Axis.horizontal,
-              itemBuilder: (context, index) => Padding(
-                  padding:
-                  const EdgeInsets.symmetric(horizontal: 12.0, vertical: 4),
-                  child: CategoryCard(
-                    category: dataRepo.categories[index],
-                  )),
+            height: 300,
+            child: Stack(
+              children: [
+                Align(
+                  alignment: Alignment.bottomCenter,
+                  child: Container(
+                    height: 220,
+                    decoration: BoxDecoration(
+                        color: context.theme.accentColor.withOpacity(0.5)),
+                    child: Stack(
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.all(12.0),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Container(
+                                width: context.width * 0.5,
+                                child: Text(
+                                  "We are working on more resume templates",
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 22,
+                                      color: context.theme.primaryColor),
+                                ),
+                              ),
+                              SizedBox(
+                                height: 10,
+                              ),
+                              Container(
+                                width: context.width * 0.5,
+                                child: Text(
+                                  'Meanwhile you can share this app with your friends and family',
+                                  style: TextStyle(
+                                    color: Colors.grey,
+                                  ),
+                                ),
+                              ),
+                              SizedBox(
+                                height: 15,
+                              ),
+                              Container(
+                                width: 150,
+                                height: 40,
+                                child: ElevatedButton(
+                                    style: ElevatedButton.styleFrom(
+                                        primary: context.theme.primaryColor),
+                                    onPressed: () {
+                                      Share.share('Get Ceevy Builder',
+                                          subject:
+                                          "Download Ceevy Builder from playstore and create awesome resumes that could look impressive to interviewer");
+                                    },
+                                    child: Text("Share")),
+                              )
+                            ],
+                          ),
+                        ),
+                        Align(
+                          alignment: Alignment.bottomRight,
+                          child: ClipRRect(
+                              child: Image.asset(
+                                AppAssets.planet,
+                                height: 40,
+                                width: 40,
+                              )),
+                        )
+                      ],
+                    ),
+                  ),
+                ),
+                Align(
+                  alignment: Alignment.topRight,
+                  child: Padding(
+                    padding: EdgeInsets.only(right: 20, top: 17),
+                    child: Transform.rotate(
+                      angle: -50 / 360,
+                      child: Container(
+                        width: 150,
+                        height: 100,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(10),
+                          color: Color(0xFFCBC5F0),
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+                Align(
+                  alignment: Alignment.topRight,
+                  child: Padding(
+                    padding: EdgeInsets.symmetric(vertical: 5, horizontal: 15),
+                    child: Transform.rotate(
+                      angle: 20 / 360,
+                      child: Container(
+                        width: 150,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(10),
+                          color: context.theme.primaryColor,
+                        ),
+                        child: Column(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            SizedBox(
+                              height: 20,
+                            ),
+                            Center(
+                              child: Padding(
+                                padding: const EdgeInsets.only(left: 20),
+                                child: Image.asset(
+                                  AppAssets.peopleAvatar,
+                                  height: 100,
+                                  width: 100,
+                                ),
+                              ),
+                            ),
+                            SizedBox(
+                              height: 3,
+                            ),
+                            Text(
+                              "Kaival Patel",
+                              style: TextStyle(
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.bold),
+                            ),
+                            SizedBox(
+                              height: 3,
+                            ),
+                            Text(
+                              "App Developer",
+                              style: TextStyle(
+                                  color: Colors.white70, fontSize: 12),
+                            ),
+                            SizedBox(
+                              height: 3,
+                            ),
+                            TextButton(
+                                onPressed: () {
+                                  Get.bottomSheet(SuggestionWidget(
+                                      title: 'Suggest new feature',
+                                      subject: 'Let me suggest a new feature',
+                                      description: 'Our app should have '),isScrollControlled: true);
+                                },
+                                child: Text(
+                                  "Suggest new features",
+                                  style: TextStyle(
+                                      fontSize: 11,
+                                      decoration: TextDecoration.underline),
+                                )),
+                            SizedBox(
+                              height: 5,
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+              ],
             ))
       ],
     );

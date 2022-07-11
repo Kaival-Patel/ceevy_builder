@@ -22,8 +22,9 @@ class AppThemes {
           elevation: 0,
           iconTheme: IconThemeData(color: AppColors.primary),
           titleTextStyle: TextStyle(
-              fontWeight: FontWeight.bold,
               color: AppColors.primary,
+              fontFamily: 'Gilroy',
+              fontWeight: FontWeight.bold,
               fontSize: 16),
           centerTitle: true),
       accentColor: AppColors.accent,

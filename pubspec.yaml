@@ -41,7 +41,9 @@ dependencies:
   #STATE MANAGEMENT AND LOGS
   get:
   get_storage:
-  logger: 
+  logger:
+  share_plus:
+  url_launcher:
 
   #FONTS AND UI
   google_fonts:

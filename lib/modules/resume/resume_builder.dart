@@ -137,7 +137,7 @@ class ResumeBuilder extends m.StatelessWidget {
   downloadResume() async {
     var permit = [Permission.manageExternalStorage, Permission.storage];
     var req = await permit.request();
-    if (req[Permission.storage] == PermissionStatus.granted &&
+    if (req[Permission.storage] == PermissionStatus.granted ||
         req[Permission.manageExternalStorage] == PermissionStatus.granted) {
       _saveResume();
     } else {
