@@ -4,32 +4,31 @@ import 'package:pdf/widgets.dart' as p;
 import 'package:resume_builder/models/profile/resume_profile_model.dart';
 import 'package:resume_builder/models/resume/base_resume_class.dart';
 import 'package:resume_builder/modules/resume/modern/mirage/mirage.dart';
-import 'package:resume_builder/modules/resume/modern/mirage/mirage_pdf.dart';
-import 'package:resume_builder/modules/resume/simple/aztec/aztec.dart';
-import 'package:resume_builder/modules/resume/simple/aztec/aztec_pdf.dart';
+import 'package:resume_builder/modules/resume/super/inferno/inferno.dart';
+import 'package:resume_builder/modules/resume/super/inferno/inferno_pdf.dart';
 import 'package:resume_builder/styles/app-assets.dart';
 
-class MirageResume implements Resume {
+class InfernoResume implements Resume {
   @override
   // TODO: implement bodyWidget
-  Widget bodyWidget(ResumeProfile profile) => Mirage(
-        resumeProfile:
-            profile.isValid ? profile : ResumeProfile().defaultProfile,
-      );
+  Widget bodyWidget(ResumeProfile profile) => Inferno(
+    resumeProfile:
+    profile.isValid ? profile : ResumeProfile().defaultProfile,
+  );
 
   @override
   // TODO: implement displayAsset
-  String get displayAsset => AppAssets.pro_ct;
+  String get displayAsset => AppAssets.super_ct;
 
   @override
   // TODO: implement pdfDocument
   Future<p.Page> pdfDocument(ResumeProfile profile, {p.TtfFont? font}) async =>
-      await MiragePdf.getPage(
+      await InfernoPdf.getPage(
           resumeProfile:
-              profile.isValid ? profile : ResumeProfile().defaultProfile,
+          profile.isValid ? profile : ResumeProfile().defaultProfile,
           font: font);
 
   @override
   // TODO: implement resumeTitle
-  String get resumeTitle => 'Mirage';
+  String get resumeTitle => 'Inferno';
 }

@@ -44,6 +44,7 @@ dependencies:
   logger:
   share_plus:
   url_launcher:
+  package_info_plus:
 
   #FONTS AND UI
   google_fonts:
