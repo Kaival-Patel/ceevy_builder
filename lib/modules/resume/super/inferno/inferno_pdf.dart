@@ -58,7 +58,7 @@ class InfernoPdf {
       pageFormat: PdfPageFormat.a4,
       margin: EdgeInsets.all(0),
       build: (Context context) {
-        return Row(children: [
+        return Row(crossAxisAlignment: CrossAxisAlignment.start, children: [
           Expanded(
               flex: 1,
               child: Container(
