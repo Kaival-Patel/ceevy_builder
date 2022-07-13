@@ -26,7 +26,7 @@ class CachePdf {
     TtfFont parsedBoldFont =
         await fontFromAssetBundle('assets/fonts/Gilroy-Bold.ttf');
     TextStyle dheadStyle = TextStyle(
-        fontSize: 17,
+        fontSize: 15,
         color: AppColors.getPdfColor(m.Color(0xFF434343)),
         fontBold: Font.ttf(parsedBoldFont.data),
         fontWeight: FontWeight.bold);
@@ -48,96 +48,90 @@ class CachePdf {
           Expanded(
               flex: 1,
               child: Container(
-                  child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.end,
-                      children: [
-                    ClipRRect(
-                        verticalRadius: 5,
-                        horizontalRadius: 5,
-                        child: Container(
-                            height: 90,
-                            width: 90,
-                            color: AppColors.getPdfColor(
-                                m.Colors.orange[100]!),
-                            child: ClipOval(
+                  child: Padding(
+                      padding: EdgeInsets.symmetric(horizontal: 20),
+                      child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.end,
+                          children: [
+                            SizedBox(height: 35),
+                            ClipRRect(
+                                verticalRadius: 5,
+                                horizontalRadius: 5,
                                 child: Image(MemoryImage(userImage),
-                                    height: 90,
-                                    width: 90,
-                                    fit: BoxFit.cover)))),
-                    SizedBox(height: 20),
-                    Text("EDUCATION",
-                        style: dheadStyle),
-                    SizedBox(height: 10),
-                    Divider(),
-                    SizedBox(height: 10),
-                    Container(
-                        height: 20,
-                        width: double.infinity,
-                        color: AppColors.getPdfColor(m.Color(0xFF043a71)),
-                        child: Padding(
-                            padding: EdgeInsets.symmetric(
-                                horizontal: 20, vertical: 3),
-                            child: Text("Personal Info", style: lmedStyle))),
-                    SizedBox(height: 5),
-                    Padding(
-                        padding: EdgeInsets.symmetric(horizontal: 20),
-                        child: Text('Address',
-                            style: lbodyStyle.copyWith(
-                                fontWeight: FontWeight.bold,
-                                fontBold: parsedBoldFont))),
-                    SizedBox(height: 2),
-                    Padding(
-                      padding: EdgeInsets.symmetric(horizontal: 20),
-                      child: Text(resumeProfile.personalDetails.address,
-                          style: lbodyStyle),
-                    ),
-                    SizedBox(height: 5),
-                    Padding(
-                        padding: EdgeInsets.symmetric(horizontal: 20),
-                        child: Text('Phone',
-                            style: lbodyStyle.copyWith(
-                                fontWeight: FontWeight.bold,
-                                fontBold: parsedBoldFont))),
-                    SizedBox(height: 2),
-                    Padding(
-                      padding: EdgeInsets.symmetric(horizontal: 20),
-                      child: Text(resumeProfile.personalDetails.contact,
-                          style: lbodyStyle),
-                    ),
-                    SizedBox(height: 5),
-                    Padding(
-                        padding: EdgeInsets.symmetric(horizontal: 20),
-                        child: Text('Email',
-                            style: lbodyStyle.copyWith(
-                                fontWeight: FontWeight.bold,
-                                fontBold: parsedBoldFont))),
-                    SizedBox(height: 2),
-                    Padding(
-                      padding: EdgeInsets.symmetric(horizontal: 20),
-                      child: Text(resumeProfile.personalDetails.email,
-                          style: lbodyStyle),
-                    ),
-                    SizedBox(height: 10),
-                    Container(
-                        height: 20,
-                        width: double.infinity,
-                        color: AppColors.getPdfColor(m.Color(0xFF043a71)),
-                        child: Padding(
-                            padding: EdgeInsets.symmetric(
-                                horizontal: 20, vertical: 3),
-                            child: Text("Skills", style: lmedStyle))),
-                    SizedBox(height: 5),
-                    Padding(
-                        padding: EdgeInsets.symmetric(horizontal: 20),
-                        child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: resumeProfile.skillDetails
-                                .map((e) => Padding(
+                                    height: 90, width: 90, fit: BoxFit.cover)),
+                            SizedBox(height: 20),
+                            Text("EDUCATION", style: dheadStyle),
+                            SizedBox(height: 10),
+                            Column(
+                                crossAxisAlignment: CrossAxisAlignment.end,
+                                children: resumeProfile.education
+                                    .map((e) => Column(
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.end,
+                                            children: [
+                                              Padding(
+                                                  padding: EdgeInsets.only(
+                                                      bottom: 3),
+                                                  child: Text("${e.title}",
+                                                      style: dbodyStyle.copyWith(
+                                                          fontWeight:
+                                                              FontWeight.bold,
+                                                          fontBold:
+                                                              parsedBoldFont))),
+                                              Padding(
+                                                  padding: EdgeInsets.only(
+                                                      bottom: 3),
+                                                  child: Text("${e.place}",
+                                                      style: dbodyStyle)),
+                                            ]))
+                                    .toList()),
+                            SizedBox(height: 10),
+                            Divider(
+                                color:
+                                    AppColors.getPdfColor(m.Colors.grey[100]!)),
+                            SizedBox(height: 5),
+                            Text("SKILLS", style: dheadStyle),
+                            Column(
+                                crossAxisAlignment: CrossAxisAlignment.end,
+                                children: resumeProfile.skillDetails
+                                    .map((e) => Padding(
                                     padding: EdgeInsets.only(bottom: 3),
-                                    child: Text("• ${e.title}",
-                                        style: lbodyStyle)))
-                                .toList())),
-                  ]))),
+                                    child: Text("${e.title}",
+                                        style: dbodyStyle)))
+                                    .toList()),
+                            SizedBox(height: 10),
+                            Divider(
+                                color:
+                                AppColors.getPdfColor(m.Colors.grey[100]!)),
+                            SizedBox(height: 10),
+                            Text("CONTACT", style: dheadStyle),
+                            SizedBox(height: 5),
+                            Text('Address',
+                                style: dbodyStyle.copyWith(
+                                    fontWeight: FontWeight.bold,
+                                    fontBold: parsedBoldFont)),
+                            SizedBox(height: 2),
+                            Text(resumeProfile.personalDetails.address,
+                                style: dbodyStyle),
+                            SizedBox(height: 5),
+                            Text('Phone',
+                                style: dbodyStyle.copyWith(
+                                    fontWeight: FontWeight.bold,
+                                    fontBold: parsedBoldFont)),
+                            SizedBox(height: 2),
+                            Text(resumeProfile.personalDetails.contact,
+                                style: dbodyStyle),
+                            SizedBox(height: 5),
+                            Text('Email',
+                                style: dbodyStyle.copyWith(
+                                    fontWeight: FontWeight.bold,
+                                    fontBold: parsedBoldFont)),
+                            SizedBox(height: 2),
+                            Text(resumeProfile.personalDetails.email,
+                                style: dbodyStyle),
+                            SizedBox(height: 10),
+                          ])))),
+          VerticalDivider(color: AppColors.getPdfColor(m.Colors.white30)),
           Expanded(
               flex: 2,
               child: Padding(
@@ -145,14 +139,18 @@ class CachePdf {
                   child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        SizedBox(height: 25),
+                        SizedBox(height: 35),
+                        Text("${resumeProfile.personalDetails.name}",
+                            style: dheadStyle.copyWith(fontWeight: FontWeight.bold,fontSize: 19)),
+                        Text("${resumeProfile.personalDetails.positionTitle}",
+                            style: dbodyStyle.copyWith(fontWeight: FontWeight.bold,fontBold: parsedBoldFont)),
+                        SizedBox(height: 5),
                         Text("${resumeProfile.sumamryDetails.introduction}",
                             style: dbodyStyle),
                         SizedBox(height: 5),
                         if (resumeProfile.workDetails.isNotEmpty) ...[
-                          Divider(color: AppColors.getPdfColor(m.Colors.grey)),
-                          Text("Work Experience", style: dmedStyle),
-                          Divider(color: AppColors.getPdfColor(m.Colors.grey)),
+                          SizedBox(height: 10),
+                          Text("MY EXPERIENCE", style: dheadStyle),
                           SizedBox(height: 5),
                           Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
@@ -160,93 +158,42 @@ class CachePdf {
                                 for (int i = 0;
                                     i < resumeProfile.workDetails.length;
                                     i++)
-                                  Row(
+                                  Column(
                                       crossAxisAlignment:
                                           CrossAxisAlignment.start,
                                       children: [
-                                        Expanded(
-                                          child: Text(
-                                              resumeProfile.workDetails[i].time,
+                                        Text(
+                                            resumeProfile.workDetails[i].title,
+                                            style: dmedStyle),
+                                        Text(
+                                            resumeProfile
+                                                .workDetails[i].time,
+                                            style: dbodyStyle),
+                                        Text(
+                                            resumeProfile
+                                                .workDetails[i].place,
+                                            style: dbodyStyle.copyWith(
+                                                fontItalic:
+                                                    parsedItalicFont)),
+                                        SizedBox(height: 5),
+                                        for (int j = 0;
+                                            j <
+                                                resumeProfile
+                                                    .workDetails[i]
+                                                    .experience
+                                                    .length;
+                                            j++)
+                                          Text(
+                                              "- " +
+                                                  resumeProfile
+                                                      .workDetails[i]
+                                                      .experience[j],
                                               style: dbodyStyle),
-                                        ),
-                                        SizedBox(width: 30),
-                                        Expanded(
-                                            flex: 2,
-                                            child: Column(
-                                                crossAxisAlignment:
-                                                    CrossAxisAlignment.start,
-                                                children: [
-                                                  Text(
-                                                      resumeProfile
-                                                          .workDetails[i].title,
-                                                      style: dmedStyle),
-                                                  Text(
-                                                      resumeProfile
-                                                          .workDetails[i].place,
-                                                      style: dbodyStyle.copyWith(
-                                                          fontItalic:
-                                                              parsedItalicFont)),
-                                                  SizedBox(height: 2),
-                                                  for (int j = 0;
-                                                      j <
-                                                          resumeProfile
-                                                              .workDetails[i]
-                                                              .experience
-                                                              .length;
-                                                      j++)
-                                                    Text(
-                                                        "- " +
-                                                            resumeProfile
-                                                                .workDetails[i]
-                                                                .experience[j],
-                                                        style: dbodyStyle),
-                                                  SizedBox(height: 10),
-                                                ]))
+                                        SizedBox(height: 10)
                                       ]),
                                 SizedBox(height: 10),
                               ])
                         ],
-                        if (resumeProfile.education.isNotEmpty) ...[
-                          SizedBox(height: 20),
-                          Divider(color: AppColors.getPdfColor(m.Colors.grey)),
-                          Text("Education", style: dmedStyle),
-                          Divider(color: AppColors.getPdfColor(m.Colors.grey)),
-                          SizedBox(height: 5),
-                          Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                for (int i = 0;
-                                    i < resumeProfile.education.length;
-                                    i++)
-                                  Row(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: [
-                                        Expanded(
-                                          child: Text(
-                                              resumeProfile.education[i].time,
-                                              style: dbodyStyle),
-                                        ),
-                                        SizedBox(width: 30),
-                                        Expanded(
-                                            flex: 2,
-                                            child: Column(
-                                                crossAxisAlignment:
-                                                    CrossAxisAlignment.start,
-                                                children: [
-                                                  Text(
-                                                      resumeProfile
-                                                          .education[i].title,
-                                                      style: dmedStyle),
-                                                  Text(
-                                                      resumeProfile
-                                                          .education[i].place,
-                                                      style: dbodyStyle),
-                                                ]))
-                                      ]),
-                                SizedBox(height: 30),
-                              ])
-                        ]
                       ]))),
         ]);
       },
