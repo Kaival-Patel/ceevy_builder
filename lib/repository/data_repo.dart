@@ -5,6 +5,7 @@ import 'package:resume_builder/models/resume/resume_model.dart';
 import 'package:resume_builder/modules/resume/simple/aztec/aztec.dart';
 import 'package:resume_builder/styles/app-assets.dart';
 import 'package:resume_builder/utils/classes/resume_aztec_class.dart';
+import 'package:resume_builder/utils/classes/resume_cache_class.dart';
 import 'package:resume_builder/utils/classes/resume_inferno_class.dart';
 import 'package:resume_builder/utils/classes/resume_mirage_class.dart';
 import 'package:resume_builder/utils/classes/resume_overpass_class.dart';
@@ -24,11 +25,13 @@ class DataRepo extends GetxController {
   }
 
   addTrendingCategories() {
-    trendingCategories.add(CVCategory(
+    var cache = CVCategory(
       name: 'MINIMAL',
       asset: AppAssets.minimal_ct,
+      resumeList: [CacheResume()],
       status: 1,
-    ));
+    );
+    trendingCategories.add(cache);
     var inferno = CVCategory(
       name: 'SUPER',
       asset: AppAssets.super_ct,
